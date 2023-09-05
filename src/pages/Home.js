@@ -12,8 +12,14 @@ export const Home = () => {
                             <input className='search-input' placeholder='search...' type='text'/>
                         </label>
                     </div>
-
                 </form>
+                <div className='filter-container'>
+                    <div className='filter-section'>
+                    <button className='sort-filter'>Hi</button>
+                    <button className='sort-filter'>hi</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
