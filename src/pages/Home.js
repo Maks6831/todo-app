@@ -4,6 +4,7 @@ import '../styles/Home.css';
 import { FiSearch } from 'react-icons/fi';
 
 import { AiOutlinePlus, AiOutlineArrowRight } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 
 export const Home = () => {
@@ -25,18 +26,20 @@ export const Home = () => {
                 <div className='filter-container'>
                     <div className='filter-section'>
                     <button className='sort-filter'>
-                        <h3>Hi</h3>
+                        <h3>Sort</h3>
                     </button>
                     <button className='sort-filter'>
-                        <h3>Hi</h3>
+                        <h3>Filter</h3>
                     </button>
                     </div>
                 </div>
                 <div className='new-task-container'>
-                    <button className='new-task-button'>
-                    <AiOutlinePlus size={25}/>
-                        <h2 className='task-button-name'>Add New Task</h2>
-                    </button>
+                    <Link to='/addtask' style={{ textDecoration: 'none' }}>
+                        <button className='new-task-button'>
+                            <AiOutlinePlus size={25}/>
+                            <h2 className='task-button-name'>Add New Task</h2>
+                        </button>
+                    </Link>
 
                 </div>
 
