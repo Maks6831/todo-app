@@ -2,7 +2,8 @@ import React from 'react';
 import '../styles/Home.css';
 
 import { FiSearch } from 'react-icons/fi';
-import {BsFillArrowRightCircleFill} from 'react-icons/bs'
+
+import { AiOutlinePlus, AiOutlineArrowRight } from 'react-icons/ai';
 
 
 export const Home = () => {
@@ -17,7 +18,7 @@ export const Home = () => {
                          <input className='search-input' placeholder='Search...' type='text'/>
                      </label>
                      <button className='search-button'>
-                     <BsFillArrowRightCircleFill size={30} color='#e6f5ff'/>
+                     <div className='arrow-container'><AiOutlineArrowRight size={25}/></div>
                      </button>
                     </div>
                 </form>
@@ -33,7 +34,8 @@ export const Home = () => {
                 </div>
                 <div className='new-task-container'>
                     <button className='new-task-button'>
-                        <h2>Add New Task</h2>
+                    <AiOutlinePlus size={25}/>
+                        <h2 className='task-button-name'>Add New Task</h2>
                     </button>
 
                 </div>
