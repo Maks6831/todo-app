@@ -21,7 +21,7 @@
 .home-link {
     width: 30px;
     background-color: rgb(255, 255, 255);
-    padding: 10px;
+    padding: 5px;
     position: absolute;
     left: 0px;
     display: flex;
@@ -34,11 +34,88 @@
 
 }
 
-.home-link-s {
-   
+.taskname {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 0px 25px;
+}
+
+.task-title {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.name-label {
+    width: 100%;
+}
+
+.name-input {
+    text-align: left;
+}
+
+input[type="text"], input[type="date"], input[type="time"]{
+    font-size: 16px;
+    height: 60px;
+    width: 100%;
+    border-radius: 30px;
+    border: 1px solid lightgray;
+    box-sizing: border-box;
+    padding: 25px;
+
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator, input[type="time"]::-webkit-calendar-picker-indicator {
+    background: none;
 }
 
 
 
+.number-label {
+    display: flex;
+    
+}
+
+.number-container {
+    display: flex;
+    width: 470px;
+    justify-content: space-between;
+}
 
 
+.t-number {
+    height: 60px;
+    margin-bottom: 35px;
+}
+
+.t-time {
+    display: flex;
+    width: 100%;
+    justify-content: center
+}
+
+.date-time {
+    padding-left: 15px;
+}
+
+.t-cont-little {
+    width: 100%;
+    padding-right: 50px;
+}
+
+
+.t-save-button {
+    width: 500px;
+    margin-top: 50px;
+}
+
+.savetask-button {
+    border: none;
+    color: white;
+    background-color: rgb(13, 153, 255);
+    height: 60px;
+    border-radius: 30px;
+    padding: 0px 50px 0px 50px;
+    
+
+
+}

@@ -1,0 +1,32 @@
+.num-label {
+    position: relative;
+
+}
+
+.number-input {
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+
+}
+
+.number-div {
+    position: absolute;
+    z-index: 0;
+    border-radius: 100%;
+    height: 30px;
+    width: 30px;
+    background-color: rgba(13, 153, 255, 0.1);
+}
+
+.number-h4 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(13, 153, 255, 0.1);
+
+}
