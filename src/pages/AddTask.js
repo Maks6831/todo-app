@@ -1,12 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/AddTask.css';
 import { BsArrowLeft } from 'react-icons/bs';
+import { AiOutlinePlus } from 'react-icons/ai'
+import { RxCross2 } from 'react-icons/rx';
 import { Numlabel } from '../components/Numlabel'
 
 
 export const AddTask = () => {
   const numbers = [1,2,3,4,5,6,7,8,9,10];
+  const [checkList, setCheckList] = useState([]);
+  const [checkListValue, setCheckListValue] = useState('');
+
+  const handleChange = (e)=> {
+    setCheckListValue(e.target.value);
+  }
+
+  const pushCheck = () => {
+    setCheckList(current => [...current, checkListValue]);
+    console.log(checkList);
+  }
+
+  const deleteItem = (item) => {
+  setCheckList(checkList.filter(element => element !== item))
+
+  }
 
   return (
     <div className='addTask-container'>
@@ -70,11 +88,33 @@ export const AddTask = () => {
               </label>
             </div>
           </div>
-          <div className='t-checklist'>
-            <h2 className='task-title'>Add Checklist</h2>
-            <label for='list'>
-              <input placeholder='Add item...' name='list' type='text'/>
-            </label>
+          <div>
+            <div className='t-checklist'>
+              <h2 className='task-title'>Add Checklist</h2>
+              <label for='list'>
+                <input placeholder='Add item...' name='list' type='text' onChange={handleChange} />
+              </label>
+              <button id='list' className='add-button' onClick={pushCheck}>
+                <AiOutlinePlus size={25} color='white'/>
+              </button>
+            </div>
+            <div className='checklist-container'>
+              <ul className='ul-container'>
+              {
+                  checkList &&
+                  checkList.map((item)=>(
+                    <li className='list-item'>
+                      <div>{item}</div>
+                      <button onClick={() => {deleteItem(item)}} className='list-delete-button'>
+                        <RxCross2 size={25} color='white'/>
+
+                      </button>
+                    </li>
+                  ))
+                } 
+               
+              </ul>
+            </div>
           </div>
           <div className='t-tags'>
             <h2 className='task-title'>Add Tags</h2>

@@ -1,7 +1,15 @@
+* {
+  font-family: sans-serif;
+  box-sizing: border-box;
+  
+
+}
+
+
 .App {
   text-align: center;
   background-color: rgb(245, 245, 245);
-  font-family: sans-serif;
-  box-sizing: border-box;
+  height: fit-content;
+  
 }
 
