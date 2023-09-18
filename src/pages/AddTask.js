@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/AddTask.css';
 import { BsArrowLeft } from 'react-icons/bs';
@@ -10,21 +10,45 @@ import { Numlabel } from '../components/Numlabel'
 export const AddTask = () => {
   const numbers = [1,2,3,4,5,6,7,8,9,10];
   const [checkList, setCheckList] = useState([]);
+  const [taskName, setTaskName] = useState('');
   const [checkListValue, setCheckListValue] = useState('');
+  const [date, setDate] = useState();
+  const [time, setTime] = useState();
+  const [tags, setTags] = useState();
+  const [priority, setPriority] = useState();
+  const [complexity, setComplexity] = useState();
+  const [numberColor, setNumberColor] = useState('number-div-passive');
 
-  const handleChange = (e)=> {
-    setCheckListValue(e.target.value);
+  const handleChange = (val, e)=> {
+    switch(val){
+      case 'task':
+        setTaskName(e.target.value);
+      break;
+      case 'date':
+        setDate(e.target.value);
+      break;
+      case 'time':
+        setTime(e.target.value);
+      break;
+      case 'tags':
+        setTags(e.target.value);
+      break;
+      default:
+    }
+
   }
 
   const pushCheck = () => {
     setCheckList(current => [...current, checkListValue]);
-    console.log(checkList);
   }
 
   const deleteItem = (item) => {
   setCheckList(checkList.filter(element => element !== item))
 
   }
+
+  useEffect(()=>{
+  },[])
 
   return (
     <div className='addTask-container'>
@@ -40,8 +64,8 @@ export const AddTask = () => {
         <div className='task-container'>
           <div className='t-taskname'>
             <h2 className='task-title'>Task Name</h2>
-            <label className='name-label'>
-              <input className='name-input' placeholder='Name of task...' type='text'></input>
+            <label for='task' className='name-label'>
+              <input className='name-input' name='task' placeholder='Name of task...' type='text' onChange={(e)=> handleChange('task', e)}></input>
             </label>
           </div>
           <div className='t-number'>
@@ -53,6 +77,9 @@ export const AddTask = () => {
                   <Numlabel
                   number={number}
                   name={'Priority'}
+                  setValue={setPriority}
+                  numberColor={number === priority ? 'number-div-active':numberColor}
+                  num={priority}
                   />
                 ))
               }
@@ -68,6 +95,10 @@ export const AddTask = () => {
                   <Numlabel
                   number={number}
                   name={'Complexity'}
+                  setValue={setComplexity}
+                  numberColor={number === complexity ?'number-div-active':numberColor }
+                  num={complexity}
+                  
                   />
                 ))
               }
@@ -78,13 +109,13 @@ export const AddTask = () => {
             <div className='t-cont-little'>
               <h2 className='task-title'>Select Due Date</h2>
               <label for='date' className='date-time'>
-                <input name='date' type='date'/>
+                <input name='date' type='date' onChange={(e)=>handleChange('date', e)}/>
               </label>
             </div>
             <div className='t-cont-little'>
               <h2 className='task-title'>Select time</h2>
               <label for='time' className='date-time'>
-                <input name='time' type='time'/>
+                <input name='time' type='time' onChange={(e)=>handleChange('time', e)}/>
               </label>
             </div>
           </div>
@@ -119,7 +150,7 @@ export const AddTask = () => {
           <div className='t-tags'>
             <h2 className='task-title'>Add Tags</h2>
             <label for='tags'>
-              <input placeholder='Tag1, Tag2, Tag3, ...' name='tags' type='text'/>
+              <input placeholder='Tag1, Tag2, Tag3, ...' name='tags' type='text' onChange={e=>handleChange('tags', e)}/>
             </label>
           </div>
           <div className='t-save-button'>
