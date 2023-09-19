@@ -33,7 +33,11 @@ export const AddTask = () => {
       case 'tags':
         setTags(e.target.value);
       break;
-      default:
+      case 'list':
+        setCheckListValue(e.target.value)
+      break;
+      default: 
+        
     }
 
   }
@@ -44,6 +48,25 @@ export const AddTask = () => {
 
   const deleteItem = (item) => {
   setCheckList(checkList.filter(element => element !== item))
+
+  }
+
+  const saveTask = () => {
+    const data = {
+      taskName: taskName,
+      priority: priority,
+      complexity: complexity,
+      date: date,
+      time: time, 
+      checkList: checkList,
+      tags: tags
+    }
+
+    let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
+    storedData.push(data);
+    localStorage.setItem('stored-data', JSON.stringify(storedData));
+
+
 
   }
 
@@ -123,7 +146,7 @@ export const AddTask = () => {
             <div className='t-checklist'>
               <h2 className='task-title'>Add Checklist</h2>
               <label for='list'>
-                <input placeholder='Add item...' name='list' type='text' onChange={handleChange} />
+                <input placeholder='Add item...' name='list' type='text' onChange={(e) => handleChange('list',e)} />
               </label>
               <button id='list' className='add-button' onClick={pushCheck}>
                 <AiOutlinePlus size={25} color='white'/>
@@ -155,7 +178,7 @@ export const AddTask = () => {
           </div>
           <div className='t-save-button'>
             <div>
-              <button className='savetask-button'> 
+              <button className='savetask-button' onClick={saveTask}> 
                 <h2 className='task-button-name'>Save Task</h2>
               </button>
             </div>

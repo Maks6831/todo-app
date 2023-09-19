@@ -169,6 +169,7 @@ input[type="date"]::-webkit-calendar-picker-indicator, input[type="time"]::-webk
     height: 60px;
     border-radius: 30px;
     padding: 0px 50px 0px 50px;
+    cursor: pointer;
     
 }
 
