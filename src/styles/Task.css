@@ -1,0 +1,44 @@
+.current-task-container {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.container-task {
+    width: 500px;
+    min-height: 100vh;
+}
+
+.info-edit-button {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 25px;
+    right: 0px;
+    background-color: rgba(13, 153, 255, 0.1);
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+
+}
+
+.subtask-header {
+    text-align: left;
+}
+
+.task-done-button {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    border-radius: 100%;
+    border: none;
+    height: 44px;
+    width: 44px;
+    cursor: pointer;
+    background-color: rgba(13, 153, 255, 0.1);
+
+}
+
+
+/*onClick={() => {deleteItem(item)}}*/

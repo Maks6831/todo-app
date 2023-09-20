@@ -35,7 +35,7 @@
     width:91%;
     border-radius: 30px;
     border: 1px solid lightgray;
-    padding-left: 40px; 
+    padding-left: 40px !important; 
     font-size: 16px;   
 }
 

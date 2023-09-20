@@ -10,6 +10,10 @@
   text-align: center;
   background-color: rgb(245, 245, 245);
   height: fit-content;
-  
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
 }
 

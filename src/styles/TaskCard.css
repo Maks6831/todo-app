@@ -1,0 +1,66 @@
+.task-card {
+    width: 100%;
+    background-color: white;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+
+.task-name-container, .info-container {
+    display: flex;
+    justify-content:space-between;
+    padding: 20px;
+    
+}
+
+.task-name {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.info-container {
+    text-align: left;
+}
+
+.card-text {
+    display: flex;
+    color: rgb(128, 128, 128);
+    margin-bottom: 5px;
+}
+
+.values {
+    color: black !important;
+}
+
+.tag-container {
+    display: flex;
+    margin: 10px 10px 10px 0px; 
+}
+
+.edit-buttons {
+    display: flex;
+}
+
+.edit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(13, 153, 255, 0.1);
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin: 5px;
+    cursor: pointer;
+    color: black;
+    padding: 10px;
+}
+
+.tag-box {
+    margin-right: 10px;
+    background-color: rgba(255, 64, 52, 0.1);
+    border-radius: 15px;
+    padding: 3px 7px 3px 7px;
+}
+
+
+
+

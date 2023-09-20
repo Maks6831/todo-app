@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/Home.css';
 
 import { FiSearch } from 'react-icons/fi';
 
 import { AiOutlinePlus, AiOutlineArrowRight } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { TaskCard } from '../components/TaskCard';
 
 
 export const Home = () => {
+    const [tasks, setTasks] = useState([]);
+
+    useEffect(()=>{
+        let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
+        setTasks(storedData);
+
+
+    },[])
   return (
     <div className='home'>
         <div className='home-container'>
@@ -32,6 +41,21 @@ export const Home = () => {
                         <h3>Filter</h3>
                     </button>
                     </div>
+                </div>
+                <div className='card-container'>
+                    {
+                        tasks.map((card)=>(
+                        <TaskCard
+                        id={card.taskName}
+                        taskName={card.taskName}
+                        priority={card.priority}
+                        complexity={card.complexity}
+                        date={card.date}
+                        time={card.time}
+                        checkList={card.checkList}
+                        tags={card.tags}
+                        />))
+                         }
                 </div>
                 <div className='new-task-container'>
                     <Link to='/addtask' style={{ textDecoration: 'none' }}>

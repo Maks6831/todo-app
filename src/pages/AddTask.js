@@ -59,7 +59,7 @@ export const AddTask = () => {
       date: date,
       time: time, 
       checkList: checkList,
-      tags: tags
+      tags: tags.split(', ')
     }
 
     let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
