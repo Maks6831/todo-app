@@ -80,7 +80,8 @@ export const AddTask = () => {
         date: date,
         time: time, 
         checkList: checkList,
-        tags: tags.split(', ')
+        tags: tags.split(', '),
+        progress: 0
       }
   
       let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];

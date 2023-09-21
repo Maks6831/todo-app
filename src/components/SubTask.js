@@ -10,7 +10,6 @@ export const SubTask = ({item, setCount, count}) => {
 
     useEffect(()=>{
     checked ? setCount((count)=> count + 1) : setCount((count)=> count -1);
-    console.log(count);
         
         
 

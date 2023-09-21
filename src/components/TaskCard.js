@@ -49,9 +49,12 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
         </div>
         {
             !type && 
-            <ProgressBar
-            percentage={percentage} 
-            /> 
+            <div style={{textAlign: 'left', marginLeft: '20px', marginBottom: '5px'}}>
+                Task Complete
+                <ProgressBar
+                percentage={percentage} 
+                /> 
+            </div>
         }
     </div>
     </Link>
