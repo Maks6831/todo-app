@@ -18,6 +18,7 @@ export const AddTask = () => {
   const [priority, setPriority] = useState();
   const [complexity, setComplexity] = useState();
   const [numberColor, setNumberColor] = useState('number-div-passive');
+  const [error, setError] = useState(false);
 
   const handleChange = (val, e)=> {
     switch(val){
@@ -52,22 +53,27 @@ export const AddTask = () => {
   }
 
   const saveTask = () => {
-    const data = {
-      taskName: taskName,
-      priority: priority,
-      complexity: complexity,
-      date: date,
-      time: time, 
-      checkList: checkList,
-      tags: tags.split(', ')
+
+     
+
+    if(!taskName || !priority || !complexity || !date || !time){
+      setError(true)
+    } else {
+      const data = {
+        taskName: taskName,
+        priority: priority,
+        complexity: complexity,
+        date: date,
+        time: time, 
+        checkList: checkList,
+        tags: tags.split(', ')
+      }
+  
+      let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
+      storedData.push(data);
+      localStorage.setItem('stored-data', JSON.stringify(storedData));
+
     }
-
-    let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
-    storedData.push(data);
-    localStorage.setItem('stored-data', JSON.stringify(storedData));
-
-
-
   }
 
   useEffect(()=>{
@@ -90,6 +96,8 @@ export const AddTask = () => {
             <label for='task' className='name-label'>
               <input className='name-input' name='task' placeholder='Name of task...' type='text' onChange={(e)=> handleChange('task', e)}></input>
             </label>
+            {error && !taskName && 
+            <div className='error-message'>Please Enter A Name for the Task</div>  }
           </div>
           <div className='t-number'>
             <h2 className='task-title'>Select Priority Level</h2>
@@ -107,8 +115,10 @@ export const AddTask = () => {
                 ))
               }
               </div>
-            </label>
+            </label> 
           </div>
+          {error && !priority && 
+            <div className='error-message'>Please Enter the Priority Level</div>  }
           <div className='t-number'>
             <h2 className='task-title'>Select Complexity level</h2>
             <label className='number-label' for='Complexity'>
@@ -128,18 +138,24 @@ export const AddTask = () => {
               </div>
             </label>
           </div>
+          {error && !complexity && 
+            <div className='error-message'>Please Enter the Complexity Level</div>  }
           <div className='t-time'>
             <div className='t-cont-little'>
               <h2 className='task-title'>Select Due Date</h2>
               <label for='date' className='date-time'>
                 <input name='date' type='date' onChange={(e)=>handleChange('date', e)}/>
               </label>
+              {error && !date && 
+            <div className='error-message'>Enter Due Date</div>  }
             </div>
             <div className='t-cont-little'>
               <h2 className='task-title'>Select time</h2>
               <label for='time' className='date-time'>
                 <input name='time' type='time' onChange={(e)=>handleChange('time', e)}/>
               </label>
+              {error && !time && 
+            <div className='error-message'>Enter Due Date</div>  }
             </div>
           </div>
           <div>

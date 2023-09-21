@@ -9,6 +9,7 @@ import { TaskCard } from '../components/TaskCard';
 export const Task = () => {
   const { task } = useParams();
   const [currentTask, setCurrentTask] = useState([]);
+  
   useEffect(()=>{
     let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
     setCurrentTask(storedData.filter((obj)=> obj.taskName === task));
