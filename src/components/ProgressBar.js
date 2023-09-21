@@ -7,7 +7,7 @@ export const ProgressBar = ({percentage}) => {
         <div className='progress'>
             <div style={{width: `${percentage}%`}} className='progress-div'></div>
         </div>
-        <div className='percentage-value'>{`${percentage}%`}</div>
+        <div className='percentage-value'>{isNaN(percentage) ? '0%' :`${percentage}%`}</div>
     </div>
   )
 }
