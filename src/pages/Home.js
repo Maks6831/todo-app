@@ -54,6 +54,7 @@ export const Home = () => {
                         time={card.time}
                         checkList={card.checkList}
                         tags={card.tags}
+                        type={true}
                         />))
                          }
                 </div>

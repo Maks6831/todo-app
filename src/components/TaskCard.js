@@ -6,22 +6,25 @@ import { MdOutlineDone, MdDateRange } from 'react-icons/md';
 import { AiOutlineArrowUp } from 'react-icons/ai';
 import { BsArrowsMove } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import { ProgressBar } from './ProgressBar';
 
-export const TaskCard = ({id, taskName, priority, complexity, date, time, checkList, tags
+export const TaskCard = ({id, taskName, priority, complexity, date, time, checkList, tags, type, percentage
 }) => {
   return (
     <Link to={`/${taskName}`}>
     <div className='task-card'>
         <div className='task-name-container'>
             <div className='task-name'>{taskName}</div>
+            {type && 
             <div className='edit-buttons'>
-                <div className='edit-button'>
-                    <RiEdit2Line size={25}/> 
-                </div>
-                <div className='edit-button'>
-                    <MdOutlineDone size={25}/>
-                </div>
+            <div className='edit-button'>
+                <RiEdit2Line size={25}/> 
             </div>
+            <div className='edit-button'>
+                <MdOutlineDone size={25}/>
+            </div>
+        </div>
+            }
         </div>
         <div className='info-container'>
             <div className='info'>
@@ -38,9 +41,18 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
                     ))
                 }</div>
             </div>
-            <div className='percentage-container'>Hi</div>
-        </div>
+            {
+                type &&
+                <div className='percentage-container'>Hi</div>
 
+            }
+        </div>
+        {
+            !type && 
+            <ProgressBar
+            percentage={percentage} 
+            /> 
+        }
     </div>
     </Link>
   )

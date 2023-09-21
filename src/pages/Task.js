@@ -3,18 +3,35 @@ import { Link, useParams } from 'react-router-dom';
 import '../styles/Task.css';
 import { BsArrowLeft } from 'react-icons/bs';
 import { RiEdit2Line } from 'react-icons/ri';
-import { MdOutlineDone } from 'react-icons/md';
+
 import { TaskCard } from '../components/TaskCard';
+import { SubTask } from '../components/SubTask';
 
 export const Task = () => {
   const { task } = useParams();
   const [currentTask, setCurrentTask] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [count, setCount] = useState(0);
+  const [percentage, setPercentage] = useState(0);
+
+
   
   useEffect(()=>{
     let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
     setCurrentTask(storedData.filter((obj)=> obj.taskName === task));
+    setTotal(currentTask[0]?.checkList.length);
+    setCount(0);
+    
+    
 
-  },[task])
+  },[task, total])
+
+
+  useEffect(()=>{
+    setPercentage(Math.trunc((count / total) * 100));
+    console.log(percentage);
+
+  },[count])
   
   return (
     <div className='current-task-container'>
@@ -40,6 +57,8 @@ export const Task = () => {
           time={currentTask[0]?.time}
           checkList={currentTask[0]?.checkList}
           tags={currentTask[0]?.tags}
+          type={false}
+          percentage={percentage}
           />
         </div>
         <div className='subtask-container'>
@@ -51,13 +70,12 @@ export const Task = () => {
               {
                   currentTask &&
                   currentTask[0]?.checkList.map((item)=>(
-                    <li className='list-item'>
-                      <div>{item}</div>
-                      <button  className='task-done-button'>
-                      <MdOutlineDone size={25}/>
-
-                      </button>
-                    </li>
+                    <SubTask
+                    item={item}
+                    setCount={setCount}
+                    count={count}
+                    />
+                    
                   ))
                 } 
                

@@ -37,6 +37,18 @@
     width: 44px;
     cursor: pointer;
     background-color: rgba(13, 153, 255, 0.1);
+}
+
+.task-done-button-checked {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    border-radius: 100%;
+    border: none;
+    height: 44px;
+    width: 44px;
+    cursor: pointer;
+    background-color: rgb(13, 153, 255)
 
 }
 

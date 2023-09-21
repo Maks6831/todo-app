@@ -46,6 +46,7 @@
     border: none;
     background-color: white;
     cursor: pointer;
+    border-radius: 30px;
 }
 
 .arrow-container{

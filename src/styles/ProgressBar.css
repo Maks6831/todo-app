@@ -1,0 +1,21 @@
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.progress {
+    width: 85%;
+    height: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: rgb(245, 245, 245);
+    overflow: hidden;
+}
+
+.progress-div {
+    background-color: red;
+    height: 100%;
+    width: 100%;
+}
