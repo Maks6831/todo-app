@@ -1,11 +1,10 @@
 import React, { useLayoutEffect, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import '../styles/Task.css';
 import { BsArrowLeft } from 'react-icons/bs';
 import { RiEdit2Line } from 'react-icons/ri';
-
 import { TaskCard } from '../components/TaskCard';
 import { SubTask } from '../components/SubTask';
+import '../styles/Task.css';
 
 export const Task = () => {
   const { task } = useParams();
@@ -14,28 +13,25 @@ export const Task = () => {
   const [count, setCount] = useState(0);
   const [percentage, setPercentage] = useState(0);
 
-
-  
   useLayoutEffect(()=>{
     let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
     setCurrentTask(...storedData.filter((obj)=> obj.taskName === task));
     setTotal(currentTask?.checkList?.length);
     setCount(0);
-    
-    
-
   },[task, total])
 
 
   useEffect(()=>{
     setPercentage(Math.trunc((count / total) * 100));
-    
     setCurrentTask({...currentTask, progress: Math.trunc((count / total) * 100)});
     let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
-    storedData[storedData.findIndex((obj)=> obj.taskName === task)] = currentTask;
+    if(currentTask?.progress){
+      storedData[storedData.findIndex((obj)=> obj.taskName === task)] = currentTask;
     localStorage.setItem('stored-data', JSON.stringify(storedData));
-
-    
+    //let checkListData = JSON.parse(localStorage.getItem('checklist-data'))||[];
+    //if(checkListData.findIndex((obj)=> obj.taskName === task) === -1){ 
+    //}
+    }
   },[count, percentage])
   
   return (
@@ -54,16 +50,17 @@ export const Task = () => {
         </div>
         <div className='card-container'>
           <TaskCard
-          id={currentTask?.taskName}
-          taskName={currentTask?.taskName}
-          priority={currentTask?.priority}
-          complexity={currentTask?.complexity}
-          date={currentTask?.date}
-          time={currentTask?.time}
-          checkList={currentTask?.checkList}
-          tags={currentTask?.tags}
-          type={false}
-          percentage={percentage}
+            key={currentTask?.taskName}
+            id={currentTask?.taskName}
+            taskName={currentTask?.taskName}
+            priority={currentTask?.priority}
+            complexity={currentTask?.complexity}
+            date={currentTask?.date}
+            time={currentTask?.time}
+            checkList={currentTask?.checkList}
+            tags={currentTask?.tags}
+            type={false}
+            percentage={currentTask?.progress}
           />
         </div>
         <div className='subtask-container'>
@@ -72,21 +69,18 @@ export const Task = () => {
           </div>
           <div className='checklist-container'>
               <ul className='ul-container'>
-              {
-                  currentTask &&
+                {currentTask &&
                   currentTask?.checkList?.map((item)=>(
                     <SubTask
-                    item={item}
-                    setCount={setCount}
-                    count={count}
-                    />
-                    
+                      key={item}
+                      item={item}
+                      setCount={setCount}
+                      count={count}
+                    />    
                   ))
                 } 
-               
               </ul>
             </div>
-
         </div>
       </div>
     </div>

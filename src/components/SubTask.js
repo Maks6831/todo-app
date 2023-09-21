@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MdOutlineDone } from 'react-icons/md';
 
-export const SubTask = ({item, setCount, count}) => {
+export const SubTask = ({item, setCount, count, }) => {
     const [checked, setChecked] = useState(false);
 
     const counter = () => {
