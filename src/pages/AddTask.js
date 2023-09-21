@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../styles/AddTask.css';
 import { BsArrowLeft } from 'react-icons/bs';
 import { AiOutlinePlus } from 'react-icons/ai'
 import { RxCross2 } from 'react-icons/rx';
-import { Numlabel } from '../components/Numlabel'
+import { Numlabel } from '../components/Numlabel';
+
 
 
 export const AddTask = () => {
@@ -19,7 +20,16 @@ export const AddTask = () => {
   const [complexity, setComplexity] = useState();
   const [numberColor, setNumberColor] = useState('number-div-passive');
   const [error, setError] = useState(false);
+  const history = useNavigate();
 
+
+  // redirect to homepage after successfull inputs validation
+  const redirect = (path) => {
+    history(path);
+  }
+
+
+// sets the data from the inputs of the page 
   const handleChange = (val, e)=> {
     switch(val){
       case 'task':
@@ -43,18 +53,22 @@ export const AddTask = () => {
 
   }
 
+  
+  // pushes the input data from the checklist input to the checklist 
   const pushCheck = () => {
     setCheckList(current => [...current, checkListValue]);
   }
 
+
+  // delete checklist elements
   const deleteItem = (item) => {
   setCheckList(checkList.filter(element => element !== item))
 
   }
 
-  const saveTask = () => {
 
-     
+  // 
+  const saveTask = () => {
 
     if(!taskName || !priority || !complexity || !date || !time){
       setError(true)
@@ -72,7 +86,8 @@ export const AddTask = () => {
       let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
       storedData.push(data);
       localStorage.setItem('stored-data', JSON.stringify(storedData));
-
+      redirect('/');
+      
     }
   }
 
