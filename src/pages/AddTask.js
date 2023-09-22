@@ -5,6 +5,7 @@ import { AiOutlinePlus } from 'react-icons/ai'
 import { RxCross2 } from 'react-icons/rx';
 import { Numlabel } from '../components/Numlabel';
 import '../styles/AddTask.css';
+import { useAuth } from '../contexts/Authcontext';
 
 export const AddTask = () => {
   const numbers = [1,2,3,4,5,6,7,8,9,10];
@@ -19,6 +20,8 @@ export const AddTask = () => {
   const [numberColor, setNumberColor] = useState('number-div-passive');
   const [error, setError] = useState(false);
   const history = useNavigate();
+  const { data, setData } = useAuth();
+
 
 
   // redirect to homepage after successfull inputs validation
@@ -68,20 +71,17 @@ export const AddTask = () => {
     if(!taskName || !priority || !complexity || !date || !time){
       setError(true)
     } else {
-      const data = {
+      const newData = {
         taskName: taskName,
         priority: priority,
+        checked: false,
         complexity: complexity,
         date: date,
         time: time, 
-        checkList: checkList,
+        checkList: checkList.map((element)=> ({name: element, checked: false})),
         tags: tags.split(', '),
-        progress: 0
       }
-  
-      let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
-      storedData.push(data);
-      localStorage.setItem('stored-data', JSON.stringify(storedData));
+      setData(...data, newData);
       redirect('/');
       
     }

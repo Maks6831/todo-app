@@ -8,12 +8,11 @@ import { useAuth } from '../contexts/Authcontext';
 
 export const Home = () => {
     const [tasks, setTasks] = useState([]);
-    const { helloWorld } = useAuth();
+    const { helloWorld, data } = useAuth();
 
     useEffect(()=>{
-        let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
-        setTasks(storedData);
-        console.log(helloWorld);
+        setTasks(data);
+        console.log(data);
 
 
     },[])

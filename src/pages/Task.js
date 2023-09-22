@@ -5,34 +5,30 @@ import { RiEdit2Line } from 'react-icons/ri';
 import { TaskCard } from '../components/TaskCard';
 import { SubTask } from '../components/SubTask';
 import '../styles/Task.css';
+import { useAuth } from '../contexts/Authcontext';
 
 export const Task = () => {
   const { task } = useParams();
+  const { data,setData } = useAuth();
   const [currentTask, setCurrentTask] = useState();
   const [total, setTotal] = useState(0);
   const [count, setCount] = useState(0);
   const [percentage, setPercentage] = useState(0);
 
   useLayoutEffect(()=>{
-    let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
-    setCurrentTask(...storedData.filter((obj)=> obj.taskName === task));
-    setTotal(currentTask?.checkList?.length);
     setCount(0);
-  },[task, total])
-
-
-  useEffect(()=>{
+    setPercentage(0);
+    setCurrentTask(...data.filter((obj)=> obj.taskName === task));
+    setTotal(data.filter((obj)=> obj.taskName === task)[0].checkList.length)
+    data.filter((obj)=> obj.taskName === task)[0].checkList.forEach(element => {
+      if(element.checked){
+        setCount(count => count + 1)
+        
+      }
+    })
     setPercentage(Math.trunc((count / total) * 100));
-    setCurrentTask({...currentTask, progress: Math.trunc((count / total) * 100)});
-    let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
-    if(currentTask?.progress){
-      storedData[storedData.findIndex((obj)=> obj.taskName === task)] = currentTask;
-    localStorage.setItem('stored-data', JSON.stringify(storedData));
-    //let checkListData = JSON.parse(localStorage.getItem('checklist-data'))||[];
-    //if(checkListData.findIndex((obj)=> obj.taskName === task) === -1){ 
-    //}
-    }
-  },[count, percentage])
+  },[data, count])
+
   
   return (
     <div className='current-task-container'>
@@ -60,7 +56,7 @@ export const Task = () => {
             checkList={currentTask?.checkList}
             tags={currentTask?.tags}
             type={false}
-            percentage={currentTask?.progress}
+            percentage={percentage}
           />
         </div>
         <div className='subtask-container'>
@@ -70,12 +66,13 @@ export const Task = () => {
           <div className='checklist-container'>
               <ul className='ul-container'>
                 {currentTask &&
-                  currentTask?.checkList?.map((item)=>(
+                  currentTask?.checkList?.map((item, index)=>(
                     <SubTask
-                      key={item}
-                      item={item}
-                      setCount={setCount}
-                      count={count}
+                      key={item.name}
+                      item={item.name}
+                      checked={item.checked}
+                      index={index}
+                      task={task}
                     />    
                   ))
                 } 

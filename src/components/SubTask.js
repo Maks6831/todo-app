@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { MdOutlineDone } from 'react-icons/md';
+import { useAuth } from '../contexts/Authcontext';
 
-export const SubTask = ({item, setCount, count, }) => {
-    const [checked, setChecked] = useState(false);
+export const SubTask = ({item, checked, task, index }) => {
+    const { data, setData } = useAuth();
+    const [isChecked, setIsChecked] = useState(checked);
 
     const counter = () => {
-        setChecked(!checked);
-    }
-
-    useEffect(()=>{
-    checked ? setCount((count)=> count + 1) : setCount((count)=> count -1);
-        
-        
-
-    },[checked, setCount])
-
-
+        const newData = [...data];
+        newData.forEach((obj) => {
+          if (obj.taskName === task) {
+            obj.checkList[index].checked = !isChecked;
+          }
+        });
+        setData(newData); 
+    
+        setIsChecked(!isChecked);
+      };
+    
     return (
         <li onClick={counter} className='list-item cursor'>
             <div>{item}</div>
-            <button  className={!checked ? 'task-done-button' : 'task-done-button-checked'}>
+            <button  className={!isChecked ? 'task-done-button' : 'task-done-button-checked'}>
                 <MdOutlineDone size={25}/>
             </button>
         </li>
