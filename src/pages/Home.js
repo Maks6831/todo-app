@@ -4,13 +4,16 @@ import { AiOutlinePlus, AiOutlineArrowRight } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { TaskCard } from '../components/TaskCard';
 import '../styles/Home.css';
+import { useAuth } from '../contexts/Authcontext';
 
 export const Home = () => {
     const [tasks, setTasks] = useState([]);
+    const { helloWorld } = useAuth();
 
     useEffect(()=>{
         let storedData = JSON.parse(localStorage.getItem('stored-data'))||[];
         setTasks(storedData);
+        console.log(helloWorld);
 
 
     },[])
