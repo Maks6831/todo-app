@@ -52,6 +52,7 @@ export const Home = () => {
                             checkList={card.checkList}
                             tags={card.tags}
                             type={true}
+                            checked={card.checked}
                         />)
                     )}
                 </div>

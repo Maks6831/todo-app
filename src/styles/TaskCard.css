@@ -1,8 +1,15 @@
 .task-card {
     width: 100%;
-    background-color: white;
     margin-bottom: 20px;
     border-radius: 15px;
+}
+
+.card-checked {
+    background-color: rgba(13, 153, 255, 0.1); 
+}
+
+.card-notchecked {
+    background-color: white;
 }
 
 .task-name-container, .info-container {

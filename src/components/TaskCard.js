@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { TagBox } from './TagBox';
 import { RiEdit2Line } from 'react-icons/ri';
 import { MdOutlineDone, MdDateRange } from 'react-icons/md';
@@ -9,9 +9,10 @@ import { ProgressBar } from './ProgressBar';
 import '../styles/TaskCard.css';
 import { useAuth } from '../contexts/Authcontext';
 
-export const TaskCard = ({id, taskName, priority, complexity, date, time, checkList, tags, type, percentage
+export const TaskCard = ({id, taskName, priority, complexity, date, time, checkList, tags, type, percentage, checked
 }) => {
     const { data, setData } = useAuth();
+    const [isChecked, setIsChecked] = useState(checked);
 
     const checkTask = (id) => {
         const newData = [...data]
@@ -21,12 +22,13 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
             }
           });
         setData(newData)
+        setIsChecked(!isChecked);
     }
 
 
   return (
     
-    <div className='task-card'>
+    <div className={isChecked ? 'task-card card-checked' : 'task-card card-notchecked'}>
         <div className='task-name-container'>
             <Link to={`/${taskName}`}>
                 <div className='task-name'>{taskName}</div>
