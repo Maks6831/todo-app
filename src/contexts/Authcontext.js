@@ -24,12 +24,20 @@ export const Authprovider = ({children}) => {
       time: '12:00',
     }]);
 
+    const calculateProgress = (checkList) => {
+      const totalItems = checkList.length;
+      const completedItem = checkList.filter(item => item.checked).length;
+      return Math.round((completedItem/totalItems) * 100)
+
+    }
+
 
 
     const value = {
         helloWorld,
         data,
-        setData
+        setData,
+        calculateProgress
         
     }
     return (

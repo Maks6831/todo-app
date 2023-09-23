@@ -9,25 +9,30 @@ import { useAuth } from '../contexts/Authcontext';
 
 export const Task = () => {
   const { task } = useParams();
-  const { data,setData } = useAuth();
+  const { data, setData, calculateProgress } = useAuth();
   const [currentTask, setCurrentTask] = useState();
   const [total, setTotal] = useState(0);
   const [count, setCount] = useState(0);
   const [percentage, setPercentage] = useState(0);
 
   useLayoutEffect(()=>{
-    setCount(0);
-    setPercentage(0);
+   // setCount(0);
+    //setPercentage(0);
     setCurrentTask(...data.filter((obj)=> obj.taskName === task));
     setTotal(data.filter((obj)=> obj.taskName === task)[0].checkList.length)
-    data.filter((obj)=> obj.taskName === task)[0].checkList.forEach(element => {
-      if(element.checked){
-        setCount(count => count + 1)
-        
-      }
-    })
-    setPercentage(Math.trunc((count / total) * 100));
-  },[data, count])
+    //data.filter((obj)=> obj.taskName === task)[0].checkList.forEach(element => {
+    //  if(element.checked){
+    //    setCount(count => count + 1)
+    //    
+    //  }
+    //})
+    //setPercentage(Math.trunc((count / total) * 100));
+    setPercentage(calculateProgress(data.filter((obj)=> obj.taskName === task)[0].checkList))
+    console.log(percentage);
+
+
+    
+  },[data, count, calculateProgress, task])
 
   
   return (
