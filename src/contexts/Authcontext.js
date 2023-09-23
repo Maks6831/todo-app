@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react';
 
 const Authcontext = React.createContext();
 
 export const useAuth = () => {
     return useContext(Authcontext)
 }
+
+
 
 const useLocalState = (key, initialValue) => {
   const storedValue = window.localStorage.getItem(key);

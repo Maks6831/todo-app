@@ -8,7 +8,6 @@ export const RadialBar = ({id, checkList}) => {
 
   useEffect(()=>{
     setPercentage(calculateProgress(checkList));
-    console.log(percentage);
   },[percentage])
 
   return (

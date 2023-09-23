@@ -27,6 +27,10 @@
     text-align: left;
 }
 
+.subtask-container {
+    padding-bottom: 20px;
+}
+
 .task-done-button {
     position: absolute;
     top: 8px;
@@ -53,4 +57,38 @@
 }
 
 
-/*onClick={() => {deleteItem(item)}}*/
+.task-buttons-container {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.task-button {
+    border: none;
+    border-radius: 30px;
+    height: 60px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+    margin-bottom: 20px;
+}
+
+.repeat {
+    background-color: rgb(13, 153, 255);
+    color: white;
+
+}
+
+.delete {
+    background-color: rgb(255, 224, 222);
+    color: black;
+}
+
+.repeat-task {
+    margin: 20px;
+}
