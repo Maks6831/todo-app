@@ -78,7 +78,7 @@ export const AddTask = () => {
       const id = crypto.randomUUID()
       const newData = {
         id: task ? task.id : id,
-        taskName: taskName,
+        taskName: taskName.trim(),
         priority: priority,
         checked: false,
         complexity: complexity,

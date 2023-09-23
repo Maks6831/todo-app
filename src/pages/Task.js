@@ -11,18 +11,17 @@ export const Task = () => {
   const { task } = useParams();
   const { data, setData, calculateProgress } = useAuth();
   const [currentTask, setCurrentTask] = useState();
-  const [total, setTotal] = useState(0);
-  const [count, setCount] = useState(0);
   const [percentage, setPercentage] = useState(0);
 
   useLayoutEffect(()=>{
+    console.log(task);
     setCurrentTask(...data.filter((obj)=> obj.taskName === task));
-    setTotal(data.filter((obj)=> obj.taskName === task)[0].checkList.length)
     setPercentage(calculateProgress(data.filter((obj)=> obj.taskName === task)[0].checkList))
+    
 
 
     
-  },[data, count, calculateProgress, task])
+  },[data, calculateProgress, task])
 
   
   return (
@@ -35,9 +34,9 @@ export const Task = () => {
             </Link>
           </div>
           <h1>Add New Task</h1>
-          <div className='info-edit-button'>
+          <Link to='/addtask' state={{taskId: currentTask?.id}} className='info-edit-button'>
             <RiEdit2Line size={20}/>
-          </div>
+          </Link>
         </div>
         <div className='card-container'>
           <TaskCard

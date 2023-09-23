@@ -6,9 +6,25 @@ export const useAuth = () => {
     return useContext(Authcontext)
 }
 
+const useLocalState = (key, initialValue) => {
+  const storedValue = window.localStorage.getItem(key);
+  const item = storedValue ? JSON.parse(storedValue) : initialValue;
+  const [state, setState] = useState(item);
+
+  const updateState = (value) => {
+    window.localStorage.setItem(key, JSON.stringify(value));
+    setState(value);
+  };
+
+  return [state, updateState];
+
+}
+
 export const Authprovider = ({children}) => {
     const helloWorld = 'hello world!';
-    const [data, setData] =  useState([{
+
+    
+    const [data, setData] =  useLocalState("data", [{
       id: '666e3e54-b1e1-4bbd-82f3-828888a214f8',
       taskName: 'To do app',
       checkList: [
@@ -31,7 +47,6 @@ export const Authprovider = ({children}) => {
       return Math.round((completedItem/totalItems) * 100)
 
     }
-
 
 
     const value = {

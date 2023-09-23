@@ -12,7 +12,6 @@ export const Home = () => {
 
     useEffect(()=>{
         setTasks(data);
-        console.log(tasks);
     },[setTasks, data, tasks])
 
   return (
