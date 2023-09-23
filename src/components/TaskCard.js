@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { ProgressBar } from './ProgressBar';
 import '../styles/TaskCard.css';
 import { useAuth } from '../contexts/Authcontext';
+import { RadialBar } from './RadialBar';
 
 export const TaskCard = ({id, taskName, priority, complexity, date, time, checkList, tags, type, percentage, checked
 }) => {
@@ -63,7 +64,12 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
                     </div>
                 </div>
                 {type &&
-                    <div className='percentage-container'>Hi</div>
+                    <div className='percentage-container'>
+                        <RadialBar
+                            key={id}
+                            checkList={checkList} 
+                         />
+                    </div>
                 }
             </div>
             </Link>
