@@ -9,6 +9,7 @@ export const useAuth = () => {
 export const Authprovider = ({children}) => {
     const helloWorld = 'hello world!';
     const [data, setData] =  useState([{
+      id: '666e3e54-b1e1-4bbd-82f3-828888a214f8',
       taskName: 'To do app',
       checkList: [
         {name: 'Set Up Context', checked: false},

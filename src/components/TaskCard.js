@@ -17,9 +17,9 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
             <div className='task-name'>{taskName}</div>
             {type && 
             <div className='edit-buttons'>
-            <div className='edit-button'>
+            <Link to='/addtask' state={{taskId: id}} className='edit-button'>
                 <RiEdit2Line size={25}/> 
-            </div>
+            </Link>
             <div className='edit-button'>
                 <MdOutlineDone size={25}/>
             </div>

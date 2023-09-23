@@ -12,10 +12,8 @@ export const Home = () => {
 
     useEffect(()=>{
         setTasks(data);
-        console.log(data);
-
-
-    },[])
+        console.log(tasks);
+    },[setTasks, data, tasks])
 
   return (
     <div className='home'>
@@ -43,10 +41,10 @@ export const Home = () => {
                     </div>
                 </div>
                 <div className='card-container'>
-                    {tasks.map((card)=>(
+                    {tasks?.map((card)=>(
                         <TaskCard
                             key={card.taskName}
-                            id={card.taskName}
+                            id={card.id}
                             taskName={card.taskName}
                             priority={card.priority}
                             complexity={card.complexity}

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useEffect, useId, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { BsArrowLeft } from 'react-icons/bs';
 import { AiOutlinePlus } from 'react-icons/ai'
 import { RxCross2 } from 'react-icons/rx';
 import { Numlabel } from '../components/Numlabel';
 import '../styles/AddTask.css';
 import { useAuth } from '../contexts/Authcontext';
+import { logDOM } from '@testing-library/react';
 
 export const AddTask = () => {
   const numbers = [1,2,3,4,5,6,7,8,9,10];
@@ -21,6 +22,9 @@ export const AddTask = () => {
   const [error, setError] = useState(false);
   const history = useNavigate();
   const { data, setData } = useAuth();
+  const location  = useLocation();
+  const [edit, setEdit] = useState();
+  const [task, setTask] = useState();
 
 
 
@@ -71,7 +75,9 @@ export const AddTask = () => {
     if(!taskName || !priority || !complexity || !date || !time){
       setError(true)
     } else {
+      const id = crypto.randomUUID()
       const newData = {
+        id: task ? task.id : id,
         taskName: taskName,
         priority: priority,
         checked: false,
@@ -81,14 +87,41 @@ export const AddTask = () => {
         checkList: checkList.map((element)=> ({name: element, checked: false})),
         tags: tags.split(', '),
       }
-      setData(...data, newData);
-      redirect('/');
+      if(task){
+        let newArr = [...data];
+        newArr.splice(data.findIndex((obj)=> obj.id === task.id), 1, newData)
+        setData(newArr);
+        redirect('/');
+      } else {
+        setData([...data, newData]);
+        redirect('/');
+
+      }
+      
+    
       
     }
   }
 
   useEffect(()=>{
-  },[])
+    if(location.state){
+      
+      setTask(...data.filter((obj)=> obj.id === location.state.taskId))
+    }
+
+    if(task){
+      setComplexity(task.complexity);
+      setPriority(task.priority);
+      setCheckList(task.checkList.map(obj => obj.name));
+      setTaskName(task.taskName);
+      setDate(task.date);
+      setTime(task.time);
+      setTags(task.tags.toString())
+
+    }
+
+    
+  },[task])
 
   return (
     <div className='addTask-container'>
@@ -99,13 +132,17 @@ export const AddTask = () => {
               <BsArrowLeft size={25}/>
             </Link>
           </div>
-          <h1>Add New Task</h1>
+          {task ? 
+            <h1>Edit Task</h1>
+              : 
+            <h1>Add New Task</h1>
+          }
         </div>
         <div className='task-container'>
           <div className='t-taskname'>
             <h2 className='task-title'>Task Name</h2>
             <label for='task' className='name-label'>
-              <input className='name-input' name='task' placeholder='Name of task...' type='text' onChange={(e)=> handleChange('task', e)}></input>
+              <input className='name-input' name='task' placeholder='Name of task...' type='text' onChange={(e)=> handleChange('task', e)} defaultValue={task?.taskName}></input>
             </label>
             {error && !taskName && 
               <div className='error-message'>Please Enter A Name for the Task</div>  
@@ -155,7 +192,7 @@ export const AddTask = () => {
             <div className='t-cont-little'>
               <h2 className='task-title'>Select Due Date</h2>
               <label for='date' className='date-time'>
-                <input name='date' type='date' onChange={(e)=>handleChange('date', e)}/>
+                <input name='date' type='date' onChange={(e)=>handleChange('date', e)} defaultValue={task?.date}/>
               </label>
                 {error && !date && 
                   <div className='error-message'>Enter Due Date</div>
@@ -164,7 +201,7 @@ export const AddTask = () => {
             <div className='t-cont-little'>
               <h2 className='task-title'>Select time</h2>
               <label for='time' className='date-time'>
-                <input name='time' type='time' onChange={(e)=>handleChange('time', e)}/>
+                <input name='time' type='time' onChange={(e)=>handleChange('time', e)} defaultValue={task?.time}/>
               </label>
                 {error && !time && 
                   <div className='error-message'>Enter Due Date</div>
@@ -199,7 +236,7 @@ export const AddTask = () => {
           <div className='t-tags'>
             <h2 className='task-title'>Add Tags</h2>
             <label for='tags'>
-              <input placeholder='Tag1, Tag2, Tag3, ...' name='tags' type='text' onChange={e=>handleChange('tags', e)}/>
+              <input placeholder='Tag1, Tag2, Tag3, ...' name='tags' type='text' onChange={e=>handleChange('tags', e)} defaultValue={task?.tags}/>
             </label>
           </div>
           <div className='t-save-button'>
