@@ -18,6 +18,7 @@ export const Task = () => {
   const [currentTask, setCurrentTask] = useState();
   const [percentage, setPercentage] = useState(0);
   const history = useNavigate();
+  const [key, setKey] = useState(0);
 
   const redirect = (path) => {
     history(path);
@@ -42,6 +43,7 @@ export const Task = () => {
       }
     })
     setData(newData);
+    setKey((key)=> key + 1);
   }
 
   useLayoutEffect(()=>{
@@ -51,7 +53,7 @@ export const Task = () => {
 
   
   return (
-    <div className='current-task-container'>
+    <div className='current-task-container' key={key}>
       <div className='container-task'>
         <div className='task-header'>
             <div className='home-link'>
