@@ -73,6 +73,7 @@
     width: 100%;
     margin: 20px;
     border-radius: 30px;
+    position: relative;
     
 }
 
@@ -88,6 +89,18 @@
     width: 100%;
     border-radius: 30px;
     border: none;
+}
+
+.filtercheck-container { 
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    top: 65px;
+    left: 230px;
+    padding: 5px 15px;
+    border-radius: 14px;
+    box-shadow: rgba(0, 0, 0, 0.75) 0px 8px 30px -15px;
+    z-index: 2000;
+    width: 200px;
 }
 
 .new-task-container {

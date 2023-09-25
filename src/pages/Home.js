@@ -1,18 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { AiOutlinePlus, AiOutlineArrowRight } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { TaskCard } from '../components/TaskCard';
 import '../styles/Home.css';
 import { useAuth } from '../contexts/Authcontext';
+import { DropdownFilter } from '../components/DropdownFilter';
 
 export const Home = () => {
     const [tasks, setTasks] = useState([]);
     const { helloWorld, data } = useAuth();
+    const [filterDropdown, setFilterDropDown] = useState(false);
+    const [filters, setFilters] = useState();
+    const ref = useRef();
+
+
+    const filterButton = () => {
+        setFilterDropDown(!filterDropdown);
+    }
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (!ref?.current?.contains(event.target)) {
+            setFilterDropDown(false);
+          }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+      }, [ref]);
 
     useEffect(()=>{
         setTasks(data);
-    },[setTasks, data, tasks])
+    },[ data])
+
+
+    useEffect(()=>{
+        const arr = [];
+        tasks?.forEach(element => {
+            arr.push(...element.tags);
+        });
+        setFilters([...arr]);
+        
+    },[tasks])
 
   return (
     <div className='home'>
@@ -31,28 +58,42 @@ export const Home = () => {
                 </form>
                 <div className='filter-container'>
                     <div className='filter-section'>
-                    <button className='sort-filter'>
-                        <h3>Sort</h3>
-                    </button>
-                    <button className='sort-filter'>
-                        <h3>Filter</h3>
-                    </button>
+                        <button className='sort-filter'>
+                            <h3>Sort</h3>
+                        </button>
+                        <button className='sort-filter' onClick={filterButton}>
+                            <h3>Filter</h3>
+                        </button>
+                        {filterDropdown && filters && 
+                            <div className='filtercheck-container' ref={ref}>
+                                {filters?.filter((el, index)=> filters?.indexOf(el) === index).map((tag , index)=> (
+                                    <DropdownFilter
+                                    setTasks={setTasks}
+                                    key={tag}
+                                    tag={tag}
+                                    tasks={tasks}
+                                    checked={!filters.includes(tag)}
+
+                                    />
+                                ))}
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className='card-container'>
-                    {tasks?.map((card)=>(
+                    {tasks && tasks?.map((card)=>(
                         <TaskCard
-                            key={card.taskName}
-                            id={card.id}
-                            taskName={card.taskName}
-                            priority={card.priority}
-                            complexity={card.complexity}
-                            date={card.date}
-                            time={card.time}
+                            key={card?.taskName}
+                            id={card?.id}
+                            taskName={card?.taskName}
+                            priority={card?.priority}
+                            complexity={card?.complexity}
+                            date={card?.date}
+                            time={card?.time}
                             checkList={card.checkList}
-                            tags={card.tags}
+                            tags={card?.tags}
                             type={true}
-                            checked={card.checked}
+                            checked={card?.checked}
                         />)
                     )}
                 </div>

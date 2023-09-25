@@ -1,0 +1,10 @@
+.filter-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid rgb(211, 211, 211);
+    font-size: 12px;;
+    
+}
+
