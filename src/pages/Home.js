@@ -55,7 +55,7 @@ export const Home = () => {
                 setKey(key => key + 1);
             break;
             case 'Default':
-                setTasks(data);
+                setTasks([...tasks].sort((a,b)=> data.indexOf(a) - data.indexOf(b)));
             break;
             default:
         }
