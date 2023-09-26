@@ -94,13 +94,23 @@
 .filtercheck-container { 
     position: absolute;
     background-color: rgb(255, 255, 255);
-    top: 65px;
+    top: 58px;
     left: 230px;
     padding: 5px 15px;
     border-radius: 14px;
     box-shadow: rgba(0, 0, 0, 0.75) 0px 8px 30px -15px;
     z-index: 2000;
     width: 200px;
+}
+
+.filter-box {
+    top: 58px;
+    left: 230px;
+}
+
+.sort-box {
+    top: 58px;
+    left: 10px;
 }
 
 .new-task-container {

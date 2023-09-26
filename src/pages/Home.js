@@ -6,26 +6,39 @@ import { TaskCard } from '../components/TaskCard';
 import '../styles/Home.css';
 import { useAuth } from '../contexts/Authcontext';
 import { DropdownFilter } from '../components/DropdownFilter';
+import { SortDropdown } from '../components/SortDropdown';
 
 export const Home = () => {
     const [tasks, setTasks] = useState([]);
     const { helloWorld, data } = useAuth();
     const [filterDropdown, setFilterDropDown] = useState(false);
+    const [sortDropdown, setSortDropdown] = useState(false);
     const [filters, setFilters] = useState();
+    const [key, setKey] = useState(0);
+    const [value, setValue] = useState('Default');
+    const sortValues = ["Default", 'Ascending Date', 'Descending Data', 'Ascending Complexity', 'Descending Complexity', 'Ascending Priority', 'Descending Priority']
     const ref = useRef();
+    const refTwo = useRef();
 
 
-    const filterButton = () => {
-        setFilterDropDown(!filterDropdown);
+    const filterButton = (value) => {
+        if(value === 'sort'){
+            setSortDropdown(!sortDropdown)
+        } else if(value === 'filter'){
+            setFilterDropDown(!filterDropdown)
+        }
     }
     useEffect(() => {
         const handleClickOutside = (event) => {
           if (!ref?.current?.contains(event.target)) {
             setFilterDropDown(false);
+          } else if(!refTwo?.current?.contains(event.target)) {
+            console.log('hello');
+            setSortDropdown(false);
           }
         };
         document.addEventListener("mousedown", handleClickOutside);
-      }, [ref]);
+      }, [ref, refTwo]);
 
     useEffect(()=>{
         setTasks(data);
@@ -58,24 +71,39 @@ export const Home = () => {
                 </form>
                 <div className='filter-container'>
                     <div className='filter-section'>
-                        <button className='sort-filter'>
+                        <button className='sort-filter' onClick={()=>filterButton('sort')}>
                             <h3>Sort</h3>
                         </button>
-                        <button className='sort-filter' onClick={filterButton}>
+                        {sortDropdown && value &&
+                            <div className='filtercheck-container sort-box' key={key} ref={refTwo}>
+                                {sortValues.map((element, index)=>(
+                                        <SortDropdown
+                                            key={index}
+                                            value={element}
+                                            setValue={setValue}
+                                            checked={element === value? true : false}
+                                            currentValue={value}
+                                            setKey={setKey}
+                                        />
+                                    ))         
+                                }
+                            </div>
+                        }
+                        <button className='sort-filter' onClick={()=>filterButton('filter')}>
                             <h3>Filter</h3>
                         </button>
                         {filterDropdown && filters && tasks && 
-                            <div className='filtercheck-container' ref={ref}>
+                            <div className='filtercheck-container filter-box' ref={ref}>
                                 {filters?.filter((el, index)=> filters?.indexOf(el) === index).map((tag , index)=> (
-                                    <DropdownFilter
-                                    setTasks={setTasks}
-                                    key={tag}
-                                    tag={tag}
-                                    tasks={tasks}
-                                    checked={tasks.every(task => task.tags.includes(tag))}
-
-                                    />
-                                ))}
+                                        <DropdownFilter
+                                            setTasks={setTasks}
+                                            key={tag}
+                                            tag={tag}
+                                            tasks={tasks}
+                                            checked={tasks.every(task => task.tags.includes(tag))}
+                                        />
+                                    ))
+                                }
                             </div>
                         }
                     </div>

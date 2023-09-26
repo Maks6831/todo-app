@@ -12,7 +12,6 @@ export const DropdownFilter = ({tag, setTasks, tasks, checked}) => {
     const oldData = data.filter(obj=> !obj.tags.includes(tag));
     
     !isChecked ? setTasks(newData) : setTasks([...tasks, ...oldData]);
-    console.log(tasks);
   }
 
 
