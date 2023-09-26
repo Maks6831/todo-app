@@ -71,7 +71,7 @@ export const AddTask = () => {
 
   // provides input validations, saves data to localStorage and redirects to home page
   const saveTask = () => {
-
+    
     if(!taskName || !priority || !complexity || !date || !time){
       setError(true)
     } else {
@@ -85,7 +85,7 @@ export const AddTask = () => {
         date: date,
         time: time, 
         checkList: checkList.map((element)=> ({name: element, checked: false})),
-        tags: tags.split(', '),
+        tags: tags.split(',').map(element => element.trim()),
       }
       if(task){
         let newArr = [...data];
