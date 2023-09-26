@@ -29,17 +29,17 @@ export const Home = () => {
 
     useEffect(()=>{
         setTasks(data);
+        
     },[ data])
-
 
     useEffect(()=>{
         const arr = [];
-        tasks?.forEach(element => {
+        data.forEach(element => {
             arr.push(...element.tags);
         });
         setFilters([...arr]);
-        
-    },[tasks])
+    }, [tasks])
+
 
   return (
     <div className='home'>
@@ -64,7 +64,7 @@ export const Home = () => {
                         <button className='sort-filter' onClick={filterButton}>
                             <h3>Filter</h3>
                         </button>
-                        {filterDropdown && filters && 
+                        {filterDropdown && filters && tasks && 
                             <div className='filtercheck-container' ref={ref}>
                                 {filters?.filter((el, index)=> filters?.indexOf(el) === index).map((tag , index)=> (
                                     <DropdownFilter
@@ -72,7 +72,7 @@ export const Home = () => {
                                     key={tag}
                                     tag={tag}
                                     tasks={tasks}
-                                    checked={!filters.includes(tag)}
+                                    checked={tasks.every(task => task.tags.includes(tag))}
 
                                     />
                                 ))}

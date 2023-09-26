@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/DropdownFilter.css';
 import { useAuth } from '../contexts/Authcontext';
 
@@ -8,13 +8,17 @@ export const DropdownFilter = ({tag, setTasks, tasks, checked}) => {
 
   const filterTasks = () => {
     setIsChecked(!isChecked)
-    const newData = data.filter(obj => obj.tags.includes(tag));
+    const newData = tasks.filter(obj => obj.tags.includes(tag));
+    const oldData = data.filter(obj=> !obj.tags.includes(tag));
     
-    !isChecked ? setTasks(newData) : setTasks(data);
-    
-
-
+    !isChecked ? setTasks(newData) : setTasks([...tasks, ...oldData]);
+    console.log(tasks);
   }
+
+
+  useEffect(()=>{
+
+  },[])
   return (
     <div onClick={()=>{
       filterTasks();  
