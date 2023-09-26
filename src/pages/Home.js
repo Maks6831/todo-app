@@ -19,6 +19,7 @@ export const Home = () => {
     const sortValues = ["Default", 'Ascending Date', 'Descending Date', 'Ascending Complexity', 'Descending Complexity', 'Ascending Priority', 'Descending Priority']
     const ref = useRef();
     const refTwo = useRef();
+    const [search, setSearch] = useState('');
 
 
     const filterButton = (value) => {
@@ -97,7 +98,7 @@ export const Home = () => {
                     <div className='search-container'>
                     <FiSearch className='search-icon' size={20}/>   
                      <label className='search-label'>
-                         <input className='search-input' placeholder='Search...' type='text'/>
+                         <input className='search-input' placeholder='Search...' type='text' onChange={(e)=> setSearch(e.target.value)} />
                      </label>
                      <button className='search-button'>
                      <div className='arrow-container'><AiOutlineArrowRight size={25}/></div>
@@ -145,7 +146,9 @@ export const Home = () => {
                     </div>
                 </div>
                 <div className='card-container' key={key}>
-                    {tasks && value && tasks?.map((card)=>(
+                    {tasks && value && tasks?.filter(element => {
+                        return search.toLowerCase() === '' ? element : element.taskName.toLowerCase().includes(search.toLowerCase())
+                    }).map((card)=>(
                         <TaskCard
                             key={card?.taskName}
                             id={card?.id}
