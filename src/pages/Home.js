@@ -10,13 +10,13 @@ import { SortDropdown } from '../components/SortDropdown';
 
 export const Home = () => {
     const [tasks, setTasks] = useState([]);
-    const { helloWorld, data } = useAuth();
+    const { data } = useAuth();
     const [filterDropdown, setFilterDropDown] = useState(false);
     const [sortDropdown, setSortDropdown] = useState(false);
     const [filters, setFilters] = useState();
     const [key, setKey] = useState(0);
     const [value, setValue] = useState('Default');
-    const sortValues = ["Default", 'Ascending Date', 'Descending Data', 'Ascending Complexity', 'Descending Complexity', 'Ascending Priority', 'Descending Priority']
+    const sortValues = ["Default", 'Ascending Date', 'Descending Date', 'Ascending Complexity', 'Descending Complexity', 'Ascending Priority', 'Descending Priority']
     const ref = useRef();
     const refTwo = useRef();
 
@@ -28,12 +28,47 @@ export const Home = () => {
             setFilterDropDown(!filterDropdown)
         }
     }
+
+    useEffect(()=>{
+        switch(value){
+            case 'Ascending Complexity':
+                setTasks([...tasks].sort((a,b)=> a.complexity - b.complexity));
+                setKey(key => key + 1)
+            break;
+            case 'Descending Complexity':
+                setTasks([...tasks].sort((a,b)=>  b.complexity - a.complexity));
+                setKey(key => key + 1);
+            break;
+            case 'Ascending Priority':
+                setTasks([...tasks].sort((a,b)=> a.priority - b.priority));
+            break;
+            case 'Descending Priority':
+                setTasks([...tasks].sort((a,b)=> b.priority - a.priority));
+                setKey(key => key + 1);
+            break;
+            case 'Ascending Date':
+                setTasks([...tasks].sort((a,b)=> new Date(a.date) - new Date(b.date)));
+                setKey(key => key + 1);
+            break;
+            case 'Descending Date':
+                setTasks([...tasks].sort((a,b)=> new Date(b.date) - new Date(a.date)));
+                setKey(key => key + 1);
+            break;
+            case 'Default':
+                setTasks(data);
+            break;
+            default:
+        }
+
+    },[value])
+
+
+
     useEffect(() => {
         const handleClickOutside = (event) => {
           if (!ref?.current?.contains(event.target)) {
             setFilterDropDown(false);
           } else if(!refTwo?.current?.contains(event.target)) {
-            console.log('hello');
             setSortDropdown(false);
           }
         };
@@ -84,6 +119,7 @@ export const Home = () => {
                                             checked={element === value? true : false}
                                             currentValue={value}
                                             setKey={setKey}
+                                            setSortDropdown={setSortDropdown}
                                         />
                                     ))         
                                 }
@@ -108,8 +144,8 @@ export const Home = () => {
                         }
                     </div>
                 </div>
-                <div className='card-container'>
-                    {tasks && tasks?.map((card)=>(
+                <div className='card-container' key={key}>
+                    {tasks && value && tasks?.map((card)=>(
                         <TaskCard
                             key={card?.taskName}
                             id={card?.id}

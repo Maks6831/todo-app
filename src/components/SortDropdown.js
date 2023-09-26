@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
-export const SortDropdown = ({value, setValue, checked, currentValue, setKey}) => {
+export const SortDropdown = ({value, setValue, checked, currentValue, setKey, setSortDropdown}) => {
     const [isChecked, setIsChecked] = useState(checked);
 
     const setChange = () => {
         setValue(value);
-        setKey(key => key + 1)
+        setKey((key)=> key + 1)
+        setSortDropdown(!SortDropdown);
 
     }
 
