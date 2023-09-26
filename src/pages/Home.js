@@ -16,10 +16,17 @@ export const Home = () => {
     const [filters, setFilters] = useState();
     const [key, setKey] = useState(0);
     const [value, setValue] = useState('Default');
-    const sortValues = ["Default", 'Ascending Date', 'Descending Date', 'Ascending Complexity', 'Descending Complexity', 'Ascending Priority', 'Descending Priority']
+    const sortValues = ["Default", 'Ascending Date', 'Descending Date', 'Ascending Complexity', 'Descending Complexity', 'Ascending Priority', 'Descending Priority'];
     const ref = useRef();
     const refTwo = useRef();
     const [search, setSearch] = useState('');
+    const [message, setMessage] = useState(false);
+
+    const searchQuery = (e) => {
+        e.preventDefault();
+        setMessage(true);
+
+    }
 
 
     const filterButton = (value) => {
@@ -69,7 +76,8 @@ export const Home = () => {
         const handleClickOutside = (event) => {
           if (!ref?.current?.contains(event.target)) {
             setFilterDropDown(false);
-          } else if(!refTwo?.current?.contains(event.target)) {
+          } 
+          if(!refTwo?.current?.contains(event.target)) {
             setSortDropdown(false);
           }
         };
@@ -94,7 +102,7 @@ export const Home = () => {
     <div className='home'>
         <div className='home-container'>
             <div className='home-inside'>
-                <form className='search-form' action='submit'>
+                <form className='search-form' action='submit' onSubmit={searchQuery}>
                     <div className='search-container'>
                     <FiSearch className='search-icon' size={20}/>   
                      <label className='search-label'>
@@ -145,6 +153,10 @@ export const Home = () => {
                         }
                     </div>
                 </div>
+                {
+                    message && 
+                    <div className='search-message'>Showing Results for: <span className='search-message-inner'>{search}</span> </div>
+                }
                 <div className='card-container' key={key}>
                     {tasks && value && tasks?.filter(element => {
                         return search.toLowerCase() === '' ? element : element.taskName.toLowerCase().includes(search.toLowerCase())

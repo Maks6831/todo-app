@@ -113,6 +113,16 @@
     left: 10px;
 }
 
+.search-message {
+    text-align: left;
+    margin: 10px;
+    font-size: 20px;
+}
+
+.search-message-inner {
+    font-style: italic;
+}
+
 .new-task-container {
     display: flex;
     justify-content: center;
