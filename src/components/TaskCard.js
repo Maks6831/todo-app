@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TagBox } from './TagBox';
 import { RiEdit2Line } from 'react-icons/ri';
 import { MdOutlineDone, MdDateRange } from 'react-icons/md';
@@ -26,6 +26,8 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
         setIsChecked(!isChecked);
     }
 
+   
+
 
   return (
     
@@ -48,7 +50,7 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
         <Link to={`/${taskName}`}>
             <div className='info-container'>
                 <div className='info'>
-                    <div className='card-text'><MdDateRange/>&nbsp; Due Date:&nbsp; <div className='values'>{date} {time}</div></div>
+                    <div className='card-text'><MdDateRange/>&nbsp; Due Date:&nbsp; <div className='time-value'>{new Date(date).toLocaleDateString('en-GB', {month: 'long', day: 'numeric', year: 'numeric'})} {time > '12:00' ? `${time} PM`: `${time} AM`}</div></div>
                     <div className='card-text'><AiOutlineArrowUp/>&nbsp; Priority:&nbsp; <div className='values'>{priority}</div></div>
                     <div className='card-text'><BsArrowsMove/>&nbsp; Complexity:&nbsp; <div className='values'>{complexity}</div></div>
                     <div className='tag-container'>

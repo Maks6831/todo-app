@@ -26,21 +26,27 @@
 
 .info-container {
     text-align: left;
+    margin-left: 10px;
 }
 
 .card-text {
     display: flex;
     color: rgb(128, 128, 128);
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .values {
-    color: black !important;
+    color: black;
+}
+
+.time-value {
+    color: rgb(255, 64, 52) !important;
+    font-weight: bold;
 }
 
 .tag-container {
     display: flex;
-    margin: 10px 10px 10px 0px; 
+    margin: 15px 10px 10px -5px; 
 }
 
 .edit-buttons {
