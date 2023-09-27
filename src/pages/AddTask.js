@@ -59,8 +59,10 @@ export const AddTask = () => {
   }
 
   // pushes the input data from the checklist input to the checklist 
-  const pushCheck = () => {
+  const pushCheck = (e) => {
+    e.preventDefault();
     setCheckList(current => [...current, checkListValue]);
+    setCheckListValue('');
   }
 
   // delete checklist elements
@@ -211,12 +213,14 @@ export const AddTask = () => {
           <div>
             <div className='t-checklist'>
               <h2 className='task-title'>Add Checklist</h2>
-              <label for='list'>
-                <input placeholder='Add item...' name='list' type='text' onChange={(e) => handleChange('list',e)} />
-              </label>
-              <button id='list' className='add-button' onClick={pushCheck}>
-                <AiOutlinePlus size={25} color='white'/>
-              </button>
+              <form onSubmit={(e)=> pushCheck}>
+                <label for='list'>
+                  <input placeholder='Add item...' name='list' value={checkListValue} defaultValue='' type='text' onChange={(e) => handleChange('list',e)} />
+                </label>
+                <button id='list' className='add-button' onClick={pushCheck}>
+                  <AiOutlinePlus size={25} color='white'/>
+                </button>
+              </form>
             </div>
             <div className='checklist-container'>
               <ul className='ul-container'>

@@ -9,6 +9,7 @@ import { ProgressBar } from './ProgressBar';
 import '../styles/TaskCard.css';
 import { useAuth } from '../contexts/Authcontext';
 import { RadialBar } from './RadialBar';
+import { Circle } from './Circle';
 
 export const TaskCard = ({id, taskName, priority, complexity, date, time, checkList, tags, type, percentage, checked
 }) => {
@@ -34,7 +35,7 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
     <div className={isChecked ? 'task-card card-checked' : 'task-card card-notchecked'}>
         <div className='task-name-container'>
             <Link to={`/${taskName}`}>
-                <div className='task-name'>{taskName}</div>
+                <div className='task-name'><span><Circle color={'red'}/></span>{taskName}</div>
             </Link>
             {type && 
             <div className='edit-buttons'>
