@@ -39,7 +39,7 @@ export const Authprovider = ({children}) => {
       ],
       complexity: 7,
       priority: 10,
-      date: '2023-09-09',
+      date: '2023-09-30',
       tags: ["shopping", "errands", "fitness", "health"],
       time: '12:00',
     },
@@ -56,7 +56,7 @@ export const Authprovider = ({children}) => {
       ],
       complexity: 5,
       priority: 7,
-      date: "2023-09-12",
+      date: "2023-10-30",
       tags: ["shopping", "errands"],
       time: "14:30"
     },
@@ -72,7 +72,7 @@ export const Authprovider = ({children}) => {
       ],
       complexity: 8,
       priority: 9,
-      date: "2023-09-14",
+      date: "2023-10-01",
       tags: ["fitness", "health"],
       time: "07:00"
     },

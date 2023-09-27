@@ -15,6 +15,7 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
 }) => {
     const { data, setData } = useAuth();
     const [isChecked, setIsChecked] = useState(checked);
+    const [color, setColor] = useState('');
 
     const checkTask = (id) => {
         const newData = [...data]
@@ -27,6 +28,26 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
         setIsChecked(!isChecked);
     }
 
+    useEffect(()=>{
+        const today = new Date().toISOString().slice(0, 10);
+        const difference = (new Date(date)) - (new Date());
+        const diffInDays = difference / (1000 * 60 * 60 * 24);
+
+        switch(true){
+            case diffInDays <= 1: 
+                setColor('red');
+                console.log('red');
+            break;
+            case diffInDays > 1 && diffInDays < 4:
+                setColor('orange');
+            break;
+            case diffInDays > 3:
+                setColor('green');
+            break;
+            default:
+        }
+    },[color, date])
+
    
 
 
@@ -35,7 +56,7 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
     <div className={isChecked ? 'task-card card-checked' : 'task-card card-notchecked'}>
         <div className='task-name-container'>
             <Link to={`/${taskName}`}>
-                <div className='task-name'><span><Circle color={'red'}/></span>{taskName}</div>
+                <div className='task-name'>{color && <span><Circle color={color}/></span>}{taskName}</div>
             </Link>
             {type && 
             <div className='edit-buttons'>

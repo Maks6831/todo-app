@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/Circle.css';
 
 export const Circle = ({color}) => {
   return (
