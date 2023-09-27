@@ -49,7 +49,11 @@ export const Task = () => {
   useLayoutEffect(()=>{
     setCurrentTask(...data.filter((obj)=> obj.taskName === task));
     setPercentage(calculateProgress(data.filter((obj)=> obj.taskName === task)[0].checkList))
-  },[data, calculateProgress, task])
+  },[data, calculateProgress, task]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   
   return (

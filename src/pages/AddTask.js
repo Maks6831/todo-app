@@ -125,6 +125,10 @@ export const AddTask = () => {
     
   },[task])
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className='addTask-container'>
       <div className='task-inside'>
