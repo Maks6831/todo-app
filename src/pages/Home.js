@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { AiOutlinePlus, AiOutlineArrowRight } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { TaskCard } from '../components/TaskCard';
-import '../styles/Home.css';
+import { TaskCard } from '../components/TaskCard'
 import { useAuth } from '../contexts/Authcontext';
 import { DropdownFilter } from '../components/DropdownFilter';
 import { SortDropdown } from '../components/SortDropdown';
+import '../styles/Home.css';
 
 export const Home = () => {
     const [tasks, setTasks] = useState([]);
@@ -27,7 +27,6 @@ export const Home = () => {
         setMessage(true);
 
     }
-
 
     const filterButton = (value) => {
         if(value === 'sort'){
@@ -85,8 +84,7 @@ export const Home = () => {
       }, [ref, refTwo]);
 
     useEffect(()=>{
-        setTasks(data);
-        
+        setTasks(data);    
     },[ data])
 
     useEffect(()=>{

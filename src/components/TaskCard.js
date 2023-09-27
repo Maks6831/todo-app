@@ -6,10 +6,10 @@ import { AiOutlineArrowUp } from 'react-icons/ai';
 import { BsArrowsMove } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { ProgressBar } from './ProgressBar';
-import '../styles/TaskCard.css';
 import { useAuth } from '../contexts/Authcontext';
 import { RadialBar } from './RadialBar';
 import { Circle } from './Circle';
+import '../styles/TaskCard.css';
 
 export const TaskCard = ({id, taskName, priority, complexity, date, time, checkList, tags, type, percentage, checked
 }) => {
@@ -32,7 +32,6 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
         const today = new Date().toISOString().slice(0, 10);
         const difference = (new Date(date)) - (new Date());
         const diffInDays = difference / (1000 * 60 * 60 * 24);
-
         switch(true){
             case diffInDays <= 1: 
                 setColor('red');
@@ -48,11 +47,7 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
         }
     },[color, date])
 
-   
-
-
   return (
-    
     <div className={isChecked ? 'task-card card-checked' : 'task-card card-notchecked'}>
         <div className='task-name-container'>
             <Link to={`/${taskName}`}>
@@ -60,13 +55,13 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
             </Link>
             {type && 
             <div className='edit-buttons'>
-            <Link to='/addtask' state={{taskId: id}} className='edit-button'>
-                <RiEdit2Line size={25}/> 
-            </Link>
-            <div className='edit-button'>
-                <MdOutlineDone onClick={()=>{checkTask(id)}} size={25}/>
+                <Link to='/addtask' state={{taskId: id}} className='edit-button'>
+                    <RiEdit2Line size={25}/> 
+                </Link>
+                <div className='edit-button'>
+                    <MdOutlineDone onClick={()=>{checkTask(id)}} size={25}/>
+                </div>
             </div>
-        </div>
             }
         </div>
         <Link to={`/${taskName}`}>
@@ -82,7 +77,6 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
                                     id={tag}
                                     tag={tag}
                                 />
-
                             ))
                         }
                     </div>

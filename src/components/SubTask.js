@@ -14,7 +14,6 @@ export const SubTask = ({item, checked, task, index }) => {
           }
         });
         setData(newData); 
-    
         setIsChecked(!isChecked);
       };
     

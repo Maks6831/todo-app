@@ -4,9 +4,8 @@ import { BsArrowLeft } from 'react-icons/bs';
 import { AiOutlinePlus } from 'react-icons/ai'
 import { RxCross2 } from 'react-icons/rx';
 import { Numlabel } from '../components/Numlabel';
-import '../styles/AddTask.css';
 import { useAuth } from '../contexts/Authcontext';
-import { logDOM } from '@testing-library/react';
+import '../styles/AddTask.css';
 
 export const AddTask = () => {
   const numbers = [1,2,3,4,5,6,7,8,9,10];
@@ -26,13 +25,10 @@ export const AddTask = () => {
   const [edit, setEdit] = useState();
   const [task, setTask] = useState();
 
-
-
   // redirect to homepage after successfull inputs validation
   const redirect = (path) => {
     history(path);
   }
-
 
 // sets the data from the inputs of the page 
   const handleChange = (val, e)=> {
@@ -107,10 +103,8 @@ export const AddTask = () => {
 
   useEffect(()=>{
     if(location.state){
-      
       setTask(...data.filter((obj)=> obj.id === location.state.taskId))
     }
-
     if(task){
       setComplexity(task.complexity);
       setPriority(task.priority);
@@ -121,8 +115,6 @@ export const AddTask = () => {
       setTags(task.tags.toString())
 
     }
-
-    
   },[task])
 
   useEffect(() => {

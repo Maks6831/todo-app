@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import '../styles/RadialBar.css'
 import { useAuth } from '../contexts/Authcontext';
+import '../styles/RadialBar.css';
 
 export const RadialBar = ({id, checkList}) => {
   const { calculateProgress } = useAuth();
@@ -14,7 +14,6 @@ export const RadialBar = ({id, checkList}) => {
     <div className='radial-bar' style={{background: `radial-gradient(closest-side, white 79%, transparent 80% 100%),
     conic-gradient(red ${percentage}%, pink 0) ` }}>
       <div className='radial-percentage'>{percentage}%</div>
-
     </div>
   )
 }

@@ -7,10 +7,7 @@ import { SubTask } from '../components/SubTask';
 import { useAuth } from '../contexts/Authcontext';
 import { BsArrowRepeat } from 'react-icons/bs';
 import { AiOutlineDelete } from 'react-icons/ai';
-
-
 import '../styles/Task.css';
-
 
 export const Task = () => {
   const { task } = useParams();

@@ -6,7 +6,6 @@ export const SortDropdown = ({value, setValue, checked, currentValue,  setSortDr
     const setChange = () => {
         setValue(value);
         setSortDropdown(!SortDropdown);
-
     }
 
     const handleDivClick = () => {
