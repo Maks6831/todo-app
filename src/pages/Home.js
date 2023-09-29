@@ -125,7 +125,7 @@ export const Home = () => {
             b.checked ? bValue = 0: bValue = 1
             return bValue - aValue;
         }))
-    },[tasks])
+    },[value, realFilters])
 
 
   return (
