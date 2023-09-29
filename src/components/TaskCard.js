@@ -35,7 +35,6 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
         switch(true){
             case diffInDays <= 1: 
                 setColor('red');
-                console.log('red');
             break;
             case diffInDays > 1 && diffInDays < 4:
                 setColor('orange');

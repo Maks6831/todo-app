@@ -23,6 +23,7 @@ export const Home = () => {
     const [search, setSearch] = useState('');
     const [message, setMessage] = useState(false);
     const [power, setPower] = useState(false);
+    const [realFilters, setRealFilters] = useState([]);
 
 
     const setPowerMode = () => {
@@ -111,6 +112,11 @@ export const Home = () => {
         setFilters([...arr]);
     }, [tasks])
 
+    useEffect(()=>{
+        console.log(realFilters);
+
+    },[realFilters])
+
 
   return (
     <div className='home'>
@@ -160,6 +166,8 @@ export const Home = () => {
                                             tag={tag}
                                             tasks={tasks}
                                             checked={tasks.every(task => task.tags.includes(tag))}
+                                            realFilters={realFilters}
+                                            setRealFilters={setRealFilters}
                                         />
                                     ))
                                 }
@@ -181,8 +189,8 @@ export const Home = () => {
                 }
                 <div className='card-container' key={key}>
                     {tasks && value && tasks?.filter((element, index) => {
-                        return value === 'Power Mode' ? index === 0: element
-                    }).filter(element => {
+                        return value === 'Power Mode' ? index === 0 : element
+                    }).filter(element => realFilters.every(string => element.tags.includes(string))).filter(element => {
                         return search.toLowerCase() === '' ? element : element.taskName.toLowerCase().includes(search.toLowerCase())
                     }).map((card)=>(
                         <TaskCard
@@ -213,3 +221,5 @@ export const Home = () => {
     </div>
   )
 }
+
+
