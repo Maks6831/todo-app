@@ -49,7 +49,7 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
   return (
     <div className={isChecked ? 'task-card card-checked' : 'task-card card-notchecked'}>
         <div className='task-name-container'>
-            <Link to={`/${taskName}`}>
+            <Link to={`/${taskName}`} className='name-link'>
                 <div className='task-name'>{color && <span><Circle color={color}/></span>}{taskName}</div>
             </Link>
             {type && 

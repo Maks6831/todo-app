@@ -19,6 +19,11 @@
     
 }
 
+.name-link {
+    width: 100%;
+    cursor: pointer;
+}
+
 .task-name {
     display: flex;
     font-weight: bold;
