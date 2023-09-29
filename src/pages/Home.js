@@ -180,7 +180,9 @@ export const Home = () => {
                     <div className='search-message'>Showing Results for: <span className='search-message-inner'>{search}</span> </div>
                 }
                 <div className='card-container' key={key}>
-                    {tasks && value && tasks?.filter(element => {
+                    {tasks && value && tasks?.filter((element, index) => {
+                        return value === 'Power Mode' ? index === 0: element
+                    }).filter(element => {
                         return search.toLowerCase() === '' ? element : element.taskName.toLowerCase().includes(search.toLowerCase())
                     }).map((card)=>(
                         <TaskCard
