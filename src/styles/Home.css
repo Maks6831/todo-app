@@ -113,6 +113,10 @@
     left: 10px;
 }
 
+.power-button-div {
+    margin: 10px 0px 20px 0px;
+}
+
 .search-message {
     text-align: left;
     margin: 30px;
@@ -137,7 +141,7 @@
     cursor: pointer;
     height: 60px;
     margin: auto;
-    padding: auto;
+    padding: 15px ;
     display: flex;
     align-items: center;
     justify-content: center;

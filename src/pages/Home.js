@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { AiOutlinePlus, AiOutlineArrowRight } from 'react-icons/ai';
+import { BsPower } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { TaskCard } from '../components/TaskCard'
 import { useAuth } from '../contexts/Authcontext';
@@ -21,6 +22,16 @@ export const Home = () => {
     const refTwo = useRef();
     const [search, setSearch] = useState('');
     const [message, setMessage] = useState(false);
+    const [power, setPower] = useState(false);
+
+
+    const setPowerMode = () => {
+        setPower(prevPower => {
+            const updatedPower = !prevPower;
+            updatedPower ? setValue('Power Mode') : setValue('Default');
+            return updatedPower;
+          });
+    }
 
     const searchQuery = (e) => {
         e.preventDefault();
@@ -61,8 +72,13 @@ export const Home = () => {
                 setTasks([...tasks].sort((a,b)=> new Date(b.date) - new Date(a.date)));
                 setKey(key => key + 1);
             break;
+            case 'Power Mode':
+                setTasks([...tasks].sort((a,b)=> (b.complexity + b.priority) - (a.complexity + a.priority)));
+                setKey(key => key + 1);
+            break;
             case 'Default':
                 setTasks([...tasks].sort((a,b)=> data.indexOf(a) - data.indexOf(b)));
+                setKey(key => key = 1);
             break;
             default:
         }
@@ -150,6 +166,14 @@ export const Home = () => {
                             </div>
                         }
                     </div>
+                </div>
+                <div className='power-button-div'>
+                    <button className='new-task-button' onClick={setPowerMode}>
+                        <BsPower size={25}/>
+                        { 
+                        power ? <h2 className='task-button-name'>Power Mode ON </h2> : <h2 className='task-button-name'>Power Mode OFF</h2>
+                        }
+                    </button>
                 </div>
                 {
                     message && 
