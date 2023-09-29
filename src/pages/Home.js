@@ -101,7 +101,13 @@ export const Home = () => {
       }, [ref, refTwo]);
 
     useEffect(()=>{
-        setTasks(data);    
+        setTasks([...data].sort((a,b)=> {
+            let aValue = 0;
+            let bValue = 0
+            a.checked ? aValue = 0: aValue = 1;
+            b.checked ? bValue = 0: bValue = 1
+            return bValue - aValue;
+        }));    
     },[ data])
 
     useEffect(()=>{
@@ -116,16 +122,6 @@ export const Home = () => {
         console.log(realFilters);
 
     },[realFilters])
-
-    useEffect(()=>{
-        setTasks([...tasks].sort((a,b)=> {
-            let aValue = 0;
-            let bValue = 0
-            a.checked ? aValue = 0: aValue = 1;
-            b.checked ? bValue = 0: bValue = 1
-            return bValue - aValue;
-        }))
-    },[value, realFilters])
 
 
   return (
