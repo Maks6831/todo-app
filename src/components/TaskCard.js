@@ -48,20 +48,25 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
 
   return (
     <div className={isChecked ? 'task-card card-checked' : 'task-card card-notchecked'}>
+        {isChecked &&
+            <div className='overlase'>
+                <div className='completed'>Completed</div>
+            </div>
+        }
         <div className='task-name-container'>
             <Link to={`/${taskName}`} className='name-link'>
                 <div className='task-name'>{color && <span><Circle color={color}/></span>}{taskName}</div>
             </Link>
-            {type && 
             <div className='edit-buttons'>
-                <Link to='/addtask' state={{taskId: id}} className='edit-button'>
-                    <RiEdit2Line size={25}/> 
-                </Link>
+                {type && 
+                    <Link to='/addtask' state={{taskId: id}} className='edit-button'>
+                        <RiEdit2Line size={25}/> 
+                    </Link>
+                }
                 <div className='edit-button'>
                     <MdOutlineDone onClick={()=>{checkTask(id)}} size={25}/>
                 </div>
-            </div>
-            }
+            </div> 
         </div>
         <Link to={`/${taskName}`}>
             <div className='info-container'>
@@ -85,7 +90,7 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
                         <RadialBar
                             key={id}
                             checkList={checkList} 
-                         />
+                        />
                     </div>
                 }
             </div>
@@ -99,7 +104,9 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
                     /> 
             </div>
         }
+        
     </div>
+
   )
 }
 
