@@ -189,6 +189,14 @@ export const Home = () => {
                         }
                     </button>
                 </div>
+                <div className='new-task-container'>
+                    <Link to='/addtask'>
+                        <button className='new-task-button add-task'>
+                            <AiOutlinePlus size={25}/>
+                            <h2 className='task-button-name'>Add New Task</h2>
+                        </button>
+                    </Link>
+                </div>
                 {
                     message && 
                     <div className='search-message'>Showing Results for: <span className='search-message-inner'>{search}</span> </div>
@@ -213,14 +221,6 @@ export const Home = () => {
                             checked={card?.checked}
                         />)
                     )}
-                </div>
-                <div className='new-task-container'>
-                    <Link to='/addtask'>
-                        <button className='new-task-button'>
-                            <AiOutlinePlus size={25}/>
-                            <h2 className='task-button-name'>Add New Task</h2>
-                        </button>
-                    </Link>
                 </div>
             </div>
         </div>
