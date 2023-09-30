@@ -6,7 +6,7 @@ import { TaskCard } from '../components/TaskCard';
 import { SubTask } from '../components/SubTask';
 import { useAuth } from '../contexts/Authcontext';
 import { BsArrowRepeat } from 'react-icons/bs';
-import { AiOutlineDelete } from 'react-icons/ai';
+import { AiOutlineDelete, AiOutlinePlus } from 'react-icons/ai';
 import '../styles/Task.css';
 
 export const Task = () => {
@@ -16,6 +16,27 @@ export const Task = () => {
   const [percentage, setPercentage] = useState(0);
   const history = useNavigate();
   const [key, setKey] = useState(0);
+  const [checkListValue, setCheckListValue] = useState();
+
+  const pushCheck=(e)=> {
+    e.preventDefault();
+    const newObj = {
+      name : checkListValue, checked: false
+    }
+    const newData = [...data];
+    newData.forEach((obj) => {
+      if (obj.taskName === task) {
+        obj.checkList.push(newObj);
+      }
+    });
+    setData(newData);
+  }
+
+  const handleChange = (e)=> {
+    setCheckListValue(e.target.value);
+    console.log(checkListValue);
+
+  }
 
   const redirect = (path) => {
     history(path);
@@ -86,6 +107,14 @@ export const Task = () => {
             <div className='subtask-header'>
               <h2>Checklist for subtasks</h2>
             </div>
+            <form onSubmit={(e)=> pushCheck} className='checklist-form'>
+                <label for='list'>
+                  <input placeholder='Add item...' name='list' value={checkListValue} defaultValue='' type='text' onChange={(e)=> handleChange(e)} />
+                </label>
+                <button id='list' className='add-button add-button-addtask' onClick={pushCheck}>
+                  <AiOutlinePlus size={25} color='white'/>
+                </button>
+              </form>
             <div className='checklist-container'>
                 <ul className='ul-container'>
                   {currentTask &&

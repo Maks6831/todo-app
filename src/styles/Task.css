@@ -31,6 +31,16 @@
     padding-bottom: 20px;
 }
 
+.checklist-form {
+    position: relative;
+}
+
+.add-button-addtask {
+    position: absolute;
+    top: 9px;
+    right: 12px;
+}
+
 .task-done-button {
     position: absolute;
     top: 8px;
