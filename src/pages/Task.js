@@ -34,8 +34,6 @@ export const Task = () => {
 
   const handleChange = (e)=> {
     setCheckListValue(e.target.value);
-    console.log(checkListValue);
-
   }
 
   const redirect = (path) => {
@@ -91,7 +89,7 @@ export const Task = () => {
           <div className='card-container'>
             <TaskCard
               key={currentTask?.taskName}
-              id={currentTask?.taskName}
+              id={currentTask?.id}
               taskName={currentTask?.taskName}
               priority={currentTask?.priority}
               complexity={currentTask?.complexity}

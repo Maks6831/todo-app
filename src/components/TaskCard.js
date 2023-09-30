@@ -22,6 +22,7 @@ export const TaskCard = ({id, taskName, priority, complexity, date, time, checkL
         newData.forEach((obj) => {
             if (obj.id === id) {
               obj.checked = !obj.checked;
+              console.log('hello');
             }
           });
         setData(newData)

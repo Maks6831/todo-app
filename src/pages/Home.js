@@ -118,10 +118,6 @@ export const Home = () => {
         setFilters([...arr]);
     }, [tasks])
 
-    useEffect(()=>{
-        console.log(realFilters);
-
-    },[realFilters])
 
 
   return (
