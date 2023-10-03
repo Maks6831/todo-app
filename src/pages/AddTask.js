@@ -12,25 +12,22 @@ export const AddTask = () => {
   const [checkList, setCheckList] = useState([]);
   const [taskName, setTaskName] = useState('');
   const [checkListValue, setCheckListValue] = useState('');
-  const [date, setDate] = useState();
-  const [time, setTime] = useState();
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
   const [tags, setTags] = useState();
-  const [priority, setPriority] = useState();
-  const [complexity, setComplexity] = useState();
+  const [priority, setPriority] = useState(0);
+  const [complexity, setComplexity] = useState(0);
   const [numberColor, setNumberColor] = useState('number-div-passive');
   const [error, setError] = useState(false);
-  const history = useNavigate();
+  const history = useNavigate('');
   const { data, setData } = useAuth();
   const location  = useLocation();
-  const [edit, setEdit] = useState();
-  const [task, setTask] = useState();
+  const [task, setTask] = useState(null);
 
-  // redirect to homepage after successfull inputs validation
   const redirect = (path) => {
     history(path);
   }
 
-// sets the data from the inputs of the page 
   const handleChange = (val, e)=> {
     switch(val){
       case 'task':
@@ -51,25 +48,19 @@ export const AddTask = () => {
       default: 
         
     }
-
   }
 
-  // pushes the input data from the checklist input to the checklist 
   const pushCheck = (e) => {
     e.preventDefault();
     setCheckList(current => [...current, checkListValue]);
     setCheckListValue('');
   }
 
-  // delete checklist elements
   const deleteItem = (item) => {
   setCheckList(checkList.filter(element => element !== item))
-
   }
 
-  // provides input validations, saves data to localStorage and redirects to home page
   const saveTask = () => {
-    
     if(!taskName || !priority || !complexity || !date || !time){
       setError(true)
     } else {
@@ -95,9 +86,6 @@ export const AddTask = () => {
         redirect('/');
 
       }
-      
-    
-      
     }
   }
 
@@ -116,7 +104,7 @@ export const AddTask = () => {
 
     }
   },[task])
-
+  
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])

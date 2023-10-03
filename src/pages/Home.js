@@ -14,7 +14,7 @@ export const Home = () => {
     const { data } = useAuth();
     const [filterDropdown, setFilterDropDown] = useState(false);
     const [sortDropdown, setSortDropdown] = useState(false);
-    const [filters, setFilters] = useState();
+    const [filters, setFilters] = useState([]);
     const [key, setKey] = useState(0);
     const [value, setValue] = useState('Default');
     const sortValues = ["Default", 'Ascending Date', 'Descending Date', 'Ascending Complexity', 'Descending Complexity', 'Ascending Priority', 'Descending Priority'];
@@ -86,8 +86,6 @@ export const Home = () => {
 
     },[value])
 
-
-
     useEffect(() => {
         const handleClickOutside = (event) => {
           if (!ref?.current?.contains(event.target)) {
@@ -117,8 +115,6 @@ export const Home = () => {
         });
         setFilters([...arr]);
     }, [tasks])
-
-
 
   return (
     <div className='home'>

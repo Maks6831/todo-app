@@ -15,11 +15,8 @@ export const DropdownFilter = ({tag, setTasks, tasks, checked, setRealFilters, r
       setRealFilters(updatedFilters);
       return updateCheck;
     });
-
   }
-  useEffect(()=>{
-
-  },[])
+  
   return (
     <div onClick={()=>{
       filterTasks();  

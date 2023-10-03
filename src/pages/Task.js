@@ -12,11 +12,11 @@ import '../styles/Task.css';
 export const Task = () => {
   const { task } = useParams();
   const { data, setData, calculateProgress } = useAuth();
-  const [currentTask, setCurrentTask] = useState();
+  const [currentTask, setCurrentTask] = useState(null);
   const [percentage, setPercentage] = useState(0);
   const history = useNavigate();
   const [key, setKey] = useState(0);
-  const [checkListValue, setCheckListValue] = useState();
+  const [checkListValue, setCheckListValue] = useState('');
 
   const pushCheck=(e)=> {
     e.preventDefault();
@@ -40,14 +40,12 @@ export const Task = () => {
     history(path);
   }
 
-
   const deleteTask = () => {
     const newData = [...data];
     newData.splice(newData.findIndex((obj)=> obj.id === task.id), 1);
     setData(newData);
     redirect('/');
   }
-
 
   const setFalse = () => {
     const newData = [...data];
@@ -70,7 +68,6 @@ export const Task = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-
   
   return (
     <div className='current-task-container' key={key}>
@@ -140,7 +137,6 @@ export const Task = () => {
             </button>
         </div>
       </div>
-      
     </div>
   )
 }
