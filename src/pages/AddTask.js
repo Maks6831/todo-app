@@ -210,12 +210,14 @@ export const AddTask = () => {
               <ul className='ul-container'>
                 {checkList && 
                   checkList.map((item)=>(
-                      <li className='list-item'>
-                        <div>{item}</div>
-                        <button onClick={() => {deleteItem(item)}} className='list-delete-button'>
-                          <RxCross2 size={25} color='white'/>
-                        </button>
-                      </li>
+                    <React.Fragment key={item}>
+                        <li className='list-item'>
+                          <div>{item}</div>
+                          <button onClick={() => {deleteItem(item)}} className='list-delete-button'>
+                            <RxCross2 size={25} color='white'/>
+                          </button>
+                        </li>
+                      </React.Fragment>
                   ))
                 }    
               </ul>
