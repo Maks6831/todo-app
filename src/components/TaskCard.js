@@ -10,22 +10,19 @@ import { useAuth } from '../contexts/Authcontext';
 import { RadialBar } from './RadialBar';
 import { Circle } from './Circle';
 import '../styles/TaskCard.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeBoolean } from '../features/dataSlice';
 
 export const TaskCard = ({id, taskName, priority, complexity, date, time, checkList, tags, type, percentage, checked
 }) => {
-    const { data, setData } = useAuth();
+    const { setData } = useAuth();
+    const dispatch = useDispatch();
+    const data = useSelector(state => state.dataReducer.data);
     const [isChecked, setIsChecked] = useState(checked);
     const [color, setColor] = useState('');
 
     const checkTask = (id) => {
-        const newData = [...data]
-        newData.forEach((obj) => {
-            if (obj.id === id) {
-              obj.checked = !obj.checked;
-              console.log('hello');
-            }
-          });
-        setData(newData)
+        dispatch(changeBoolean(id));
         setIsChecked(!isChecked);
     }
 

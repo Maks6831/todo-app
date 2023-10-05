@@ -11,7 +11,7 @@ import '../styles/AddTask.css';
 
 
 export const AddTask = () => {
-  const numbers = [1,2,3,4,5,6,7,8,9,10];
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const [checkList, setCheckList] = useState([]);
   const [taskName, setTaskName] = useState('');
   const [checkListValue, setCheckListValue] = useState('');
@@ -24,7 +24,7 @@ export const AddTask = () => {
   const [error, setError] = useState(false);
   const history = useNavigate('');
   const data = useSelector(state => state.dataReducer.data);
-  const location  = useLocation();
+  const location = useLocation();
   const [task, setTask] = useState(null);
   const dispatch = useDispatch();
 
@@ -32,25 +32,25 @@ export const AddTask = () => {
     history(path);
   }
 
-  const handleChange = (val, e)=> {
-    switch(val){
+  const handleChange = (val, e) => {
+    switch (val) {
       case 'task':
         setTaskName(e.target.value);
-      break;
+        break;
       case 'date':
         setDate(e.target.value);
-      break;
+        break;
       case 'time':
         setTime(e.target.value);
-      break;
+        break;
       case 'tags':
         setTags(e.target.value);
-      break;
+        break;
       case 'list':
         setCheckListValue(e.target.value)
-      break;
-      default: 
-        
+        break;
+      default:
+
     }
   }
 
@@ -61,11 +61,11 @@ export const AddTask = () => {
   }
 
   const deleteItem = (item) => {
-  setCheckList(checkList.filter(element => element !== item))
+    setCheckList(checkList.filter(element => element !== item))
   }
 
   const saveTask = () => {
-    if(!taskName || !priority || !complexity || !date || !time){
+    if (!taskName || !priority || !complexity || !date || !time) {
       setError(true)
     } else {
       const id = crypto.randomUUID()
@@ -76,11 +76,11 @@ export const AddTask = () => {
         checked: false,
         complexity: complexity,
         date: date,
-        time: time, 
-        checkList: checkList.map((element)=> ({name: element, checked: false})),
+        time: time,
+        checkList: checkList.map((element) => ({ name: element, checked: false })),
         tags: tags.split(',').map(element => element.trim()),
       }
-      if(task){
+      if (task) {
         dispatch(updateTodo(newData));
         redirect('/');
       } else {
@@ -91,11 +91,11 @@ export const AddTask = () => {
     }
   }
 
-  useEffect(()=>{
-    if(location.state){
-      setTask(...data.filter((obj)=> obj.id === location.state.taskId))
+  useEffect(() => {
+    if (location.state) {
+      setTask(...data.filter((obj) => obj.id === location.state.taskId))
     }
-    if(task){
+    if (task) {
       setComplexity(task.complexity);
       setPriority(task.priority);
       setCheckList(task.checkList.map(obj => obj.name));
@@ -105,8 +105,8 @@ export const AddTask = () => {
       setTags(task.tags.toString())
 
     }
-  },[task])
-  
+  }, [task])
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -117,12 +117,12 @@ export const AddTask = () => {
         <div className='task-header'>
           <div className='home-link'>
             <Link to='/'>
-              <BsArrowLeft size={25}/>
+              <BsArrowLeft size={25} />
             </Link>
           </div>
-          {task ? 
+          {task ?
             <h1>Edit Task</h1>
-              : 
+            :
             <h1>Add New Task</h1>
           }
         </div>
@@ -130,110 +130,110 @@ export const AddTask = () => {
           <div className='t-taskname'>
             <h2 className='task-title'>Task Name</h2>
             <label htmlFor='task' className='name-label'>
-              <input className='name-input' name='task' placeholder='Name of task...' type='text' onChange={(e)=> handleChange('task', e)} defaultValue={task?.taskName}></input>
+              <input className='name-input' name='task' placeholder='Name of task...' type='text' onChange={(e) => handleChange('task', e)} defaultValue={task?.taskName}></input>
             </label>
-            {error && !taskName && 
-              <div className='error-message'>Please Enter A Name for the Task</div>  
+            {error && !taskName &&
+              <div className='error-message'>Please Enter A Name for the Task</div>
             }
           </div>
           <div className='t-number'>
             <h2 className='task-title'>Select Priority Level</h2>
             <label className='number-label' for='Priority'>
               <div className='number-container'>
-                {numbers.map((number)=>(
-                    <Numlabel
-                      key={number}
-                      number={number}
-                      name={'Priority'}
-                      setValue={setPriority}
-                      numberColor={number === priority ? 'number-div-active':numberColor}
-                      num={priority}
-                    />)
-                )}
-              </div>
-            </label> 
-          </div>
-            {error && !priority && 
-                <div className='error-message'>Please Enter the Priority Level</div>  
-            }
-          <div className='t-number'>
-            <h2 className='task-title'>Select Complexity level</h2>
-            <label className='number-label' for='Complexity'>
-              <div className='number-container'>
-                {numbers.map((number)=>(
-                    <Numlabel
-                      key={number}
-                      number={number}
-                      name={'Complexity'}
-                      setValue={setComplexity}
-                      numberColor={number === complexity ? 'number-div-active' : numberColor}
-                      num={complexity}
-                    />)
+                {numbers.map((number) => (
+                  <Numlabel
+                    key={number}
+                    number={number}
+                    name={'Priority'}
+                    setValue={setPriority}
+                    numberColor={number === priority ? 'number-div-active' : numberColor}
+                    num={priority}
+                  />)
                 )}
               </div>
             </label>
           </div>
-            {error && !complexity && 
-              <div className='error-message'>Please Enter the Complexity Level</div>
-            }
+          {error && !priority &&
+            <div className='error-message'>Please Enter the Priority Level</div>
+          }
+          <div className='t-number'>
+            <h2 className='task-title'>Select Complexity level</h2>
+            <label className='number-label' for='Complexity'>
+              <div className='number-container'>
+                {numbers.map((number) => (
+                  <Numlabel
+                    key={number}
+                    number={number}
+                    name={'Complexity'}
+                    setValue={setComplexity}
+                    numberColor={number === complexity ? 'number-div-active' : numberColor}
+                    num={complexity}
+                  />)
+                )}
+              </div>
+            </label>
+          </div>
+          {error && !complexity &&
+            <div className='error-message'>Please Enter the Complexity Level</div>
+          }
           <div className='t-time'>
             <div className='t-cont-little'>
               <h2 className='task-title'>Select Due Date</h2>
               <label for='date' className='date-time'>
-                <input name='date' type='date' onChange={(e)=>handleChange('date', e)} defaultValue={task?.date}/>
+                <input name='date' type='date' onChange={(e) => handleChange('date', e)} defaultValue={task?.date} />
               </label>
-                {error && !date && 
-                  <div className='error-message'>Enter Due Date</div>
-                }
+              {error && !date &&
+                <div className='error-message'>Enter Due Date</div>
+              }
             </div>
             <div className='t-cont-little'>
               <h2 className='task-title'>Select time</h2>
               <label for='time' className='date-time'>
-                <input name='time' type='time' onChange={(e)=>handleChange('time', e)} defaultValue={task?.time}/>
+                <input name='time' type='time' onChange={(e) => handleChange('time', e)} defaultValue={task?.time} />
               </label>
-                {error && !time && 
-                  <div className='error-message'>Enter Due Date</div>
-                }
+              {error && !time &&
+                <div className='error-message'>Enter Due Date</div>
+              }
             </div>
           </div>
           <div>
             <div className='t-checklist'>
               <h2 className='task-title'>Add Checklist</h2>
-              <form onSubmit={(e)=> pushCheck}>
+              <form onSubmit={(e) => pushCheck}>
                 <label for='list'>
-                  <input placeholder='Add item...' name='list' value={checkListValue} defaultValue='' type='text' onChange={(e) => handleChange('list',e)} />
+                  <input placeholder='Add item...' name='list' value={checkListValue} defaultValue='' type='text' onChange={(e) => handleChange('list', e)} />
                 </label>
                 <button id='list' className='add-button' onClick={pushCheck}>
-                  <AiOutlinePlus size={25} color='white'/>
+                  <AiOutlinePlus size={25} color='white' />
                 </button>
               </form>
             </div>
             <div className='checklist-container'>
               <ul className='ul-container'>
-                {checkList && 
-                  checkList.map((item)=>(
+                {checkList &&
+                  checkList.map((item) => (
                     <React.Fragment key={item}>
-                        <li className='list-item'>
-                          <div>{item}</div>
-                          <button onClick={() => {deleteItem(item)}} className='list-delete-button'>
-                            <RxCross2 size={25} color='white'/>
-                          </button>
-                        </li>
-                      </React.Fragment>
+                      <li className='list-item'>
+                        <div>{item}</div>
+                        <button onClick={() => { deleteItem(item) }} className='list-delete-button'>
+                          <RxCross2 size={25} color='white' />
+                        </button>
+                      </li>
+                    </React.Fragment>
                   ))
-                }    
+                }
               </ul>
             </div>
           </div>
           <div className='t-tags'>
             <h2 className='task-title'>Add Tags</h2>
             <label for='tags'>
-              <input placeholder='Tag1, Tag2, Tag3, ...' name='tags' type='text' onChange={e=>handleChange('tags', e)} defaultValue={task?.tags}/>
+              <input placeholder='Tag1, Tag2, Tag3, ...' name='tags' type='text' onChange={e => handleChange('tags', e)} defaultValue={task?.tags} />
             </label>
           </div>
           <div className='t-save-button'>
             <div>
-              <button className='savetask-button' onClick={saveTask}> 
+              <button className='savetask-button' onClick={saveTask}>
                 <h2 className='task-button-name'>Save Task</h2>
               </button>
             </div>

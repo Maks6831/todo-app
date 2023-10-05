@@ -88,10 +88,20 @@ export const dataSlice = createSlice({
             state.data.splice(state.data.findIndex((obj)=> obj.id === action.payload.id), 1, action.payload);
             updateState(state.data);
         },
+        changeBoolean: (state, action) => {
+            const newData = [...state.data]
+        newData.forEach((obj) => {
+            if (obj.id === action.payload) {
+              obj.checked = !obj.checked;
+            }
+          });
+          state.data = newData;
+          updateState(state.data);
+        }
     }
 })
 
 
-export const {addTodo, updateTodo} = dataSlice.actions;
+export const {addTodo, updateTodo, changeBoolean} = dataSlice.actions;
 
 export default dataSlice.reducer
