@@ -87,7 +87,7 @@ export const dataSlice = createSlice({
         updateTodo : (state, action) => {
             state.data.splice(state.data.findIndex((obj)=> obj.id === action.payload.id), 1, action.payload);
             updateState(state.data);
-        }
+        },
     }
 })
 

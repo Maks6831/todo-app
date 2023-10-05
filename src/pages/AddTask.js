@@ -5,7 +5,7 @@ import { AiOutlinePlus } from 'react-icons/ai'
 import { RxCross2 } from 'react-icons/rx';
 import { Numlabel } from '../components/Numlabel';
 import { useAuth } from '../contexts/Authcontext';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, updateTodo } from '../features/dataSlice';
 import '../styles/AddTask.css';
 
@@ -23,7 +23,7 @@ export const AddTask = () => {
   const [numberColor, setNumberColor] = useState('number-div-passive');
   const [error, setError] = useState(false);
   const history = useNavigate('');
-  const { data, setData } = useAuth();
+  const data = useSelector(state => state.dataReducer.data);
   const location  = useLocation();
   const [task, setTask] = useState(null);
   const dispatch = useDispatch();
