@@ -5,7 +5,10 @@ import { AiOutlinePlus } from 'react-icons/ai'
 import { RxCross2 } from 'react-icons/rx';
 import { Numlabel } from '../components/Numlabel';
 import { useAuth } from '../contexts/Authcontext';
+import { useDispatch } from 'react-redux';
+import { addTodo, updateTodo } from '../features/dataSlice';
 import '../styles/AddTask.css';
+
 
 export const AddTask = () => {
   const numbers = [1,2,3,4,5,6,7,8,9,10];
@@ -23,6 +26,7 @@ export const AddTask = () => {
   const { data, setData } = useAuth();
   const location  = useLocation();
   const [task, setTask] = useState(null);
+  const dispatch = useDispatch();
 
   const redirect = (path) => {
     history(path);
@@ -77,12 +81,10 @@ export const AddTask = () => {
         tags: tags.split(',').map(element => element.trim()),
       }
       if(task){
-        let newArr = [...data];
-        newArr.splice(data.findIndex((obj)=> obj.id === task.id), 1, newData)
-        setData(newArr);
+        dispatch(updateTodo(newData));
         redirect('/');
       } else {
-        setData([...data, newData]);
+        dispatch(addTodo(newData));
         redirect('/');
 
       }
@@ -127,7 +129,7 @@ export const AddTask = () => {
         <div className='task-container'>
           <div className='t-taskname'>
             <h2 className='task-title'>Task Name</h2>
-            <label for='task' className='name-label'>
+            <label htmlFor='task' className='name-label'>
               <input className='name-input' name='task' placeholder='Name of task...' type='text' onChange={(e)=> handleChange('task', e)} defaultValue={task?.taskName}></input>
             </label>
             {error && !taskName && 
