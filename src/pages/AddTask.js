@@ -4,7 +4,6 @@ import { BsArrowLeft } from 'react-icons/bs';
 import { AiOutlinePlus } from 'react-icons/ai'
 import { RxCross2 } from 'react-icons/rx';
 import { Numlabel } from '../components/Numlabel';
-import { useAuth } from '../contexts/Authcontext';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, updateTodo } from '../features/dataSlice';
 import '../styles/AddTask.css';

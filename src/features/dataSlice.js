@@ -97,11 +97,37 @@ export const dataSlice = createSlice({
           });
           state.data = newData;
           updateState(state.data);
+        },
+        pushSubtask : (state, action) => {
+          const newData = [...state.data];
+          newData.forEach((obj) => {
+            if (obj.taskName === action.payload.task) {
+              obj.checkList.push(action.payload.obj);
+            }
+          });
+          state.data = newData;
+          updateState(state.data);
+        },
+        deleteTask : (state, action) => {
+          state.data.splice(state.data.findIndex((obj)=> obj.id === action.payload.id), 1);
+          updateState(state.data);
+        },
+        setFalse : (state, action) => {
+          const newData = [...state.data];
+          newData.forEach((obj)=> {
+            if(obj.id === action.payload){
+              obj.checkList.forEach((ob)=>
+                ob.checked = false
+              )
+            }
+          })
+          state.data = newData;
+          updateState(state.data);
         }
     }
 })
 
 
-export const {addTodo, updateTodo, changeBoolean} = dataSlice.actions;
+export const {addTodo, updateTodo, changeBoolean, pushSubtask, deleteTask, setFalse} = dataSlice.actions;
 
 export default dataSlice.reducer

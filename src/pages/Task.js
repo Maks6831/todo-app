@@ -8,10 +8,15 @@ import { useAuth } from '../contexts/Authcontext';
 import { BsArrowRepeat } from 'react-icons/bs';
 import { AiOutlineDelete, AiOutlinePlus } from 'react-icons/ai';
 import '../styles/Task.css';
+import { useDispatch } from 'react-redux';
+import { pushSubtask, setFalse } from '../features/dataSlice';
+import { useSelector } from 'react-redux';
 
 export const Task = () => {
   const { task } = useParams();
-  const { data, setData, calculateProgress } = useAuth();
+  const dispatch = useDispatch();
+  const {   calculateProgress } = useAuth();
+  const data = useSelector(state => state.dataReducer.data);
   const [currentTask, setCurrentTask] = useState(null);
   const [percentage, setPercentage] = useState(0);
   const history = useNavigate();
@@ -23,13 +28,7 @@ export const Task = () => {
     const newObj = {
       name : checkListValue, checked: false
     }
-    const newData = [...data];
-    newData.forEach((obj) => {
-      if (obj.taskName === task) {
-        obj.checkList.push(newObj);
-      }
-    });
-    setData(newData);
+    dispatch(pushSubtask({obj: newObj, task: task}))
   }
 
   const handleChange = (e)=> {
@@ -41,22 +40,12 @@ export const Task = () => {
   }
 
   const deleteTask = () => {
-    const newData = [...data];
-    newData.splice(newData.findIndex((obj)=> obj.id === task.id), 1);
-    setData(newData);
+    dispatch(deleteTask(task.id));
     redirect('/');
   }
 
-  const setFalse = () => {
-    const newData = [...data];
-    newData.forEach((obj)=> {
-      if(obj.id === currentTask.id){
-        obj.checkList.forEach((ob)=>
-          ob.checked = false
-        )
-      }
-    })
-    setData(newData);
+  const resetChecked = () => {
+    dispatch(setFalse(currentTask.id))
     setKey((key)=> key + 1);
   }
 
@@ -127,7 +116,7 @@ export const Task = () => {
               </div>
           </div>
           <div className='task-buttons-container'>
-            <button onClick={setFalse} className='task-button cursor repeat'>
+            <button onClick={resetChecked} className='task-button cursor repeat'>
               <BsArrowRepeat  size={30} color='white'/>
               <div className='repeat-task'>Repeat Task</div>
             </button>

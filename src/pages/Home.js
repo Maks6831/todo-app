@@ -4,7 +4,6 @@ import { AiOutlinePlus, AiOutlineArrowRight } from 'react-icons/ai';
 import { BsPower } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { TaskCard } from '../components/TaskCard'
-import { useAuth } from '../contexts/Authcontext';
 import { DropdownFilter } from '../components/DropdownFilter';
 import { SortDropdown } from '../components/SortDropdown';
 import { useSelector } from 'react-redux';

@@ -6,7 +6,6 @@ import { AiOutlineArrowUp } from 'react-icons/ai';
 import { BsArrowsMove } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { ProgressBar } from './ProgressBar';
-import { useAuth } from '../contexts/Authcontext';
 import { RadialBar } from './RadialBar';
 import { Circle } from './Circle';
 import '../styles/TaskCard.css';
@@ -15,9 +14,7 @@ import { changeBoolean } from '../features/dataSlice';
 
 export const TaskCard = ({id, taskName, priority, complexity, date, time, checkList, tags, type, percentage, checked
 }) => {
-    const { setData } = useAuth();
     const dispatch = useDispatch();
-    const data = useSelector(state => state.dataReducer.data);
     const [isChecked, setIsChecked] = useState(checked);
     const [color, setColor] = useState('');
 
