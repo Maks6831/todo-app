@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { MdOutlineDone } from 'react-icons/md';
 import { useAuth } from '../contexts/Authcontext';
+import { useDispatch } from 'react-redux';
+import { setChecked } from '../features/dataSlice';
 
 export const SubTask = ({item, checked, task, index }) => {
-    const { data, setData } = useAuth();
     const [isChecked, setIsChecked] = useState(checked);
+    const dispatch = useDispatch();
 
     const counter = () => {
-        const newData = [...data];
-        newData.forEach((obj) => {
-          if (obj.taskName === task) {
-            obj.checkList[index].checked = !isChecked;
-          }
-        });
-        setData(newData); 
-        setIsChecked(!isChecked);
+      dispatch(setChecked({
+        isChecked: isChecked,
+        task: task,
+        index: index
+      }))
+      setIsChecked(!isChecked);
       };
     
     return (

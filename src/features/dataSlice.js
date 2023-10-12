@@ -123,11 +123,22 @@ export const dataSlice = createSlice({
           })
           state.data = newData;
           updateState(state.data);
+        },
+        setChecked : (state, action) => {
+          const newData = [...state.data];
+          console.log(action.payload);
+          newData.forEach((obj) => {
+            if (obj.taskName === action.payload.task) {
+              obj.checkList[action.payload.index].checked = !action.payload.isChecked;
+            }
+          });
+          state.data = newData;
+          updateState(state.data);
         }
     }
 })
 
 
-export const {addTodo, updateTodo, changeBoolean, pushSubtask, deleteTask, setFalse} = dataSlice.actions;
+export const {addTodo, updateTodo, changeBoolean, pushSubtask, deleteTask, setFalse, setChecked} = dataSlice.actions;
 
 export default dataSlice.reducer

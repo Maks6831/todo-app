@@ -4,7 +4,6 @@ import { BsArrowLeft } from 'react-icons/bs';
 import { RiEdit2Line } from 'react-icons/ri';
 import { TaskCard } from '../components/TaskCard';
 import { SubTask } from '../components/SubTask';
-import { useAuth } from '../contexts/Authcontext';
 import { BsArrowRepeat } from 'react-icons/bs';
 import { AiOutlineDelete, AiOutlinePlus } from 'react-icons/ai';
 import '../styles/Task.css';
@@ -15,13 +14,18 @@ import { useSelector } from 'react-redux';
 export const Task = () => {
   const { task } = useParams();
   const dispatch = useDispatch();
-  const {   calculateProgress } = useAuth();
   const data = useSelector(state => state.dataReducer.data);
   const [currentTask, setCurrentTask] = useState(null);
   const [percentage, setPercentage] = useState(0);
   const history = useNavigate();
   const [key, setKey] = useState(0);
   const [checkListValue, setCheckListValue] = useState('');
+
+  const calculateProgress  = (array) => {
+    const totalItems = array.length;
+    const completedItem = array.filter(item => item.checked).length;
+    return Math.round((completedItem/totalItems) * 100)
+  }
 
   const pushCheck=(e)=> {
     e.preventDefault();
@@ -47,12 +51,18 @@ export const Task = () => {
   const resetChecked = () => {
     dispatch(setFalse(currentTask.id))
     setKey((key)=> key + 1);
-  }
+  }//
 
   useLayoutEffect(()=>{
     setCurrentTask(...data.filter((obj)=> obj.taskName === task));
-    setPercentage(calculateProgress(data.filter((obj)=> obj.taskName === task)[0].checkList))
-  },[data, calculateProgress, task]);
+    
+  },[data,task]);
+
+  useEffect(()=>{
+    const checkedArray = data.filter((obj)=> obj.taskName === task)[0].checkList;
+    setPercentage(calculateProgress(checkedArray));
+    console.log('hello');
+  },[data, task, key]);
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -73,7 +83,7 @@ export const Task = () => {
             </Link>
           </div>
           <div className='card-container'>
-            <TaskCard
+              <TaskCard
               key={currentTask?.taskName}
               id={currentTask?.id}
               taskName={currentTask?.taskName}
@@ -85,7 +95,7 @@ export const Task = () => {
               tags={currentTask?.tags}
               type={false}
               percentage={percentage}
-            />
+            /> 
           </div>
           <div className='subtask-container'>
             <div className='subtask-header'>

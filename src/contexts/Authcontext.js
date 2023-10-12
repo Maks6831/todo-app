@@ -99,7 +99,6 @@ export const Authprovider = ({children}) => {
       const totalItems = checkList.length;
       const completedItem = checkList.filter(item => item.checked).length;
       return Math.round((completedItem/totalItems) * 100)
-
     }
 
 
@@ -107,7 +106,7 @@ export const Authprovider = ({children}) => {
         helloWorld,
         data,
         setData,
-        calculateProgress
+        //calculateProgress
         
     }
     return (
