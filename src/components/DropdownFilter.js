@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useAuth } from '../contexts/Authcontext';
 import '../styles/DropdownFilter.css';
 
 export const DropdownFilter = ({tag, setTasks, tasks, checked, setRealFilters, realFilters}) => {
-  const { data } = useAuth(); 
   const [isChecked, setIsChecked] = useState(checked);
 
   const filterTasks = () => {

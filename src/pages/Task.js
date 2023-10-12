@@ -60,6 +60,7 @@ export const Task = () => {
 
   useEffect(()=>{
     const checkedArray = data.filter((obj)=> obj.taskName === task)[0].checkList;
+    console.log(checkedArray);
     setPercentage(calculateProgress(checkedArray));
     console.log('hello');
   },[data, task, key]);

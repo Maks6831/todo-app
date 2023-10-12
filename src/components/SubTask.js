@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { MdOutlineDone } from 'react-icons/md';
-import { useAuth } from '../contexts/Authcontext';
 import { useDispatch } from 'react-redux';
 import { setChecked } from '../features/dataSlice';
 
